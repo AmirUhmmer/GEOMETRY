@@ -19,10 +19,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'wwwroot', 'index.html'));
 });
 
-// Serve CSS file
-app.get('/main.css', (req, res) => {
-    res.sendFile(path.join(__dirname, 'wwwroot', 'main.css'));
-});
+// // Serve CSS file
+// app.get('/main.css', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'wwwroot', 'main.css'));
+// });
 
 // // Serve JS file
 // app.get('/main.js', (req, res) => {
