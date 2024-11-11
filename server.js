@@ -5,7 +5,6 @@ const path = require('path');  // Add path module
 
 let app = express();
 
-// app.use(express.static(path.join(__dirname, 'wwwroot')));
 app.use(express.static(path.join(__dirname, 'wwwroot')));
 // app.use(session({ secret: SERVER_SESSION_SECRET, maxAge: 24 * 60 * 60 * 1000 }));
 app.use(session({ 
@@ -26,13 +25,13 @@ app.get('/main.js', (req, res) => {
     res.sendFile(path.join(__dirname, 'wwwroot', ' main.js'));
 });
 
-app.get('/viewer.js', (req, res) => {
-    res.sendFile(path.join(__dirname, 'wwwroot', ' viewer.js'));
-});
+// app.get('/viewer.js', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'wwwroot', ' viewer.js'));
+// });
 
-app.get('/viewer.js', (req, res) => {
-    res.sendFile(path.join(__dirname, 'wwwroot', ' sidebar.js'));
-});
+// app.get('/viewer.js', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'wwwroot', ' sidebar.js'));
+// });
 
 app.use(require('./routes/auth.js'));
 app.use(require('./routes/hubs.js'));
