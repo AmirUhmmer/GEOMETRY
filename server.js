@@ -25,14 +25,6 @@ app.get('/main.js', (req, res) => {
     res.sendFile(path.join(__dirname, 'wwwroot', ' main.js'));
 });
 
-// app.get('/viewer.js', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'wwwroot', ' viewer.js'));
-// });
-
-// app.get('/viewer.js', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'wwwroot', ' sidebar.js'));
-// });
-
 app.use(require('./routes/auth.js'));
 app.use(require('./routes/hubs.js'));
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}...`));
