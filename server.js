@@ -6,6 +6,8 @@ const path = require('path');  // Add path module
 let app = express();
 
 app.use(express.static(path.join(__dirname, 'wwwroot')));
+app.use(express(path.join(__dirname, 'wwwroot', 'viewer.js')));
+app.use(express(path.join(__dirname, 'wwwroot', 'sidebar.js')));
 // app.use(session({ secret: SERVER_SESSION_SECRET, maxAge: 24 * 60 * 60 * 1000 }));
 app.use(session({ 
     keys: [SERVER_SESSION_SECRET], // Add the session secret as a key in an array
