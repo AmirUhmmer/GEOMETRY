@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "aps-hubs-browser-nodejs",
   "version": "1.0.0",
   "description": "Autodesk Platform Services application built by following the Hubs Browser tutorial from https://aps.autodesk.com/tutorials.",
