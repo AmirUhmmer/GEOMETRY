@@ -24,12 +24,7 @@
 // convert to esm
 
 
-import dotenv from 'dotenv';
-
-// Load environment variables from .env file
-dotenv.config();
-
-// Destructure environment variables
+// Destructure environment variables from process.env (injected by Vercel)
 let { APS_CLIENT_ID, APS_CLIENT_SECRET, APS_CALLBACK_URL, SERVER_SESSION_SECRET, PORT } = process.env;
 
 if (!APS_CLIENT_ID || !APS_CLIENT_SECRET || !APS_CALLBACK_URL || !SERVER_SESSION_SECRET) {
@@ -43,7 +38,7 @@ const PUBLIC_TOKEN_SCOPES = ['viewables:read'];
 // Default port to 8080 if not set in environment variables
 PORT = PORT || 8080;
 
-// Export the variables using ESM syntax
+// Export variables
 export {
     APS_CLIENT_ID,
     APS_CLIENT_SECRET,
@@ -53,4 +48,5 @@ export {
     PUBLIC_TOKEN_SCOPES,
     PORT
 };
+
 
