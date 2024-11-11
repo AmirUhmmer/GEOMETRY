@@ -5,12 +5,12 @@ const path = require('path');  // Add path module
 
 let app = express();
 
-app.use((req, res, next) => {
-    if (req.path.endsWith('.css')) {
-      res.setHeader('Content-Type', 'text/css');
-    }
-    next();
-  });
+// app.use((req, res, next) => {
+//     if (req.path.endsWith('.css')) {
+//       res.setHeader('Content-Type', 'text/css');
+//     }
+//     next();
+//   });
 
 app.use(express.static(path.join(__dirname, 'wwwroot')));
 // app.use(session({ secret: SERVER_SESSION_SECRET, maxAge: 24 * 60 * 60 * 1000 }));
