@@ -3,6 +3,9 @@ const session = require('cookie-session');
 const { PORT, SERVER_SESSION_SECRET } = require('./config.js');
 const path = require('path');
 
+
+
+
 let app = express();
 
 // Serve static files from 'wwwroot' directory
@@ -19,15 +22,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'wwwroot', 'index.html'));
 });
 
-// // Serve CSS file
-// app.get('/main.css', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'wwwroot', 'main.css'));
-// });
 
-// // Serve JS file
-// app.get('/main.js', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'wwwroot', 'main.js')); // Fixed extra space in the path
-// });
 
 // Import custom routes
 app.use(require('./routes/auth.js'));
