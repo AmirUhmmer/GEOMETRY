@@ -76,7 +76,7 @@ export function initViewer(container) {
                     // console.log(event);
                     const selectedLevelIndex = event.levelIndex; // Get the level index from the event
                     console.log(`Selected Floor: ${selectedLevelIndex}`);
-                    // HEATMAP(viewer, selectedLevelIndex); // Pass selected floor to the HEATMAP function
+                    HEATMAP(viewer, selectedLevelIndex); // Pass selected floor to the HEATMAP function
                     SPRITES(viewer, selectedLevelIndex);
                 });
 
