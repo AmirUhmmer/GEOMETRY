@@ -13,9 +13,8 @@
       }
     ],
     "functions": {
-      "server.js": {
-        "maxDuration": 30
-        
+      "/server.js": {
+        "maxDuration": 60
       }
     }
   }
