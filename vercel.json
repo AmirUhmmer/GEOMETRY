@@ -12,10 +12,12 @@
         "dest": "/server.js"
       }
     ],
-    "functions": {
-      "api/**/*": {
-        "maxDuration": 30
+    "functions": [
+      {
+        "api/**/*": {
+            "maxDuration": 30
+        }
       }
-    }
+    ]
 }
   
