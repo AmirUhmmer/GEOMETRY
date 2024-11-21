@@ -1,4 +1,4 @@
-// Map to store viewables by dbId
+// Map to store viewables by dbId push test
 const viewableMap = new Map();
 
 export async function SPRITES(viewer, selectedFloor) {

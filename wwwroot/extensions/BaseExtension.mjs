@@ -1,3 +1,4 @@
+//push test
 export class BaseExtension extends Autodesk.Viewing.Extension {
     constructor(viewer, options) {
         super(viewer, options);

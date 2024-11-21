@@ -1,4 +1,4 @@
-// SpriteInfoPanel.js
+// SpriteInfoPanel.js push test
 export class SpriteInfoPanel extends Autodesk.Viewing.UI.DockingPanel {
     constructor(extension, id, title, options) {
         super(extension.viewer.container, id, title, options);
