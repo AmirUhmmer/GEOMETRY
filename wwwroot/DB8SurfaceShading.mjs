@@ -94,26 +94,6 @@ export async function HEATMAP(viewer, selectedFloor) {
     console.log('SurfaceShadingExtension loaded successfully!');
 
 
-    // try {
-    //     // Setup surface shading with heatmap data
-    //     await extension.setupSurfaceShading(viewer.model, heatmapData);
-
-    //     extension0.registerSurfaceShadingColors("TEMP", [0x0000ff, 0x00ff00, 0xff0000]);
-
-    //     // Fetch sensor values in parallel for all nodes and render surface shading
-    //     const sensorValues = await Promise.all(nodes.map(node => getSensorValue(node.hemyguid)));
-        
-
-
-    //     nodes.forEach((node, index) => {
-    //         extension.renderSurfaceShading(node.name, "TEMP", () => sensorValues[index]);
-    //     });
-
-    // } catch (error) {
-    //     console.error('Failed to load SurfaceShadingExtension or render surface shading', error);
-    // }
-
-
     try {
         // Setup surface shading with heatmap data
         await extension.setupSurfaceShading(viewer.model, heatmapData);
@@ -177,7 +157,24 @@ async function getSensorValue(location) {
 
 
 
+ // try {
+    //     // Setup surface shading with heatmap data
+    //     await extension.setupSurfaceShading(viewer.model, heatmapData);
 
+    //     extension0.registerSurfaceShadingColors("TEMP", [0x0000ff, 0x00ff00, 0xff0000]);
+
+    //     // Fetch sensor values in parallel for all nodes and render surface shading
+    //     const sensorValues = await Promise.all(nodes.map(node => getSensorValue(node.hemyguid)));
+        
+
+
+    //     nodes.forEach((node, index) => {
+    //         extension.renderSurfaceShading(node.name, "TEMP", () => sensorValues[index]);
+    //     });
+
+    // } catch (error) {
+    //     console.error('Failed to load SurfaceShadingExtension or render surface shading', error);
+    // }
 
 
 
