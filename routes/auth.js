@@ -74,30 +74,40 @@ router.get('/api/graphdata/:location', async (req, res) => {
             .input('location', sql.VarChar, location)
             .query(`
                 WITH Interval AS (
-                SELECT CAST(CAST(GETDATE() AS DATE) AS DATETIME) AS IntervalStart
-                UNION ALL
-                SELECT DATEADD(MINUTE, 30, IntervalStart) 
-                FROM Interval
-                WHERE IntervalStart < CAST(GETDATE() AS DATETIME)
+                    SELECT CAST(CAST(GETDATE() AS DATE) AS DATETIME) AS IntervalStart
+                    UNION ALL
+                    SELECT DATEADD(MINUTE, 30, IntervalStart) 
+                    FROM Interval
+                    WHERE IntervalStart < CAST(GETDATE() AS DATETIME)
+                ),
+                LiveDataWithRank AS (
+                    SELECT 
+                        ld.sensorId,
+                        ld.observationTime,
+                        ld.value,
+                        ri.point_name,
+                        ri.is_point_of_furniture_name,
+                        ROW_NUMBER() OVER (PARTITION BY ld.sensorId, i.IntervalStart ORDER BY ABS(DATEDIFF(MINUTE, ld.observationTime, i.IntervalStart))) AS rn
+                    FROM 
+                        Interval i
+                    JOIN [dbo].[LiveData] ld
+                        ON ld.observationTime >= CAST(CAST(GETDATE() AS DATE) AS DATETIME)
+                        AND ld.observationTime <= GETDATE()
+                    JOIN [dbo].[RelynkIdentifier0711] ri
+                        ON ld.sensorId = ri.point_id
+                    WHERE 
+                        ri.point_name = 'Current'
+                        AND ri.point_id = @location
                 )
                 SELECT 
                     FORMAT(DATEADD(MINUTE, DATEDIFF(MINUTE, 0, ld.observationTime) / 30 * 30, 0), 'HH:mm') AS observationTime,
                     ld.value
                 FROM 
-                    Interval i
-                JOIN [dbo].[LiveData] ld
-                    ON ABS(DATEDIFF(MINUTE, ld.observationTime, i.IntervalStart)) = 
-                    (SELECT TOP 1 ABS(DATEDIFF(MINUTE, ld2.observationTime, i.IntervalStart))
-                        FROM [dbo].[LiveData] ld2
-                        WHERE ld2.sensorId = ld.sensorId
-                        ORDER BY ABS(DATEDIFF(MINUTE, ld2.observationTime, i.IntervalStart)))
-                JOIN [dbo].[RelynkIdentifier0711] ri
-                    ON ld.sensorId = ri.point_id
-                WHERE ri.point_name = 'Current' 
-                    AND ri.point_id = @location
-                    AND ld.observationTime >= CAST(CAST(GETDATE() AS DATE) AS DATETIME) -- Start of the day
-                    AND ld.observationTime <= GETDATE() -- Up to the current time
-                ORDER BY observationTime DESC;
+                    LiveDataWithRank ld
+                WHERE 
+                    ld.rn = 1 -- Select only the closest observation time for each interval
+                ORDER BY 
+                    observationTime DESC;
 
             `);
 

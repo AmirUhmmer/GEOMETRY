@@ -8,6 +8,8 @@ export async function HEATMAP(viewer, selectedFloor) {
 
     // Render the heatmap for the selected floor
     // Node definitions and GUIDs in an array
+    // 3.22629737854003
+    // x = 9.32028579711914
     if (selectedFloor === 1) {
         console.log('Rendering heatmap for the First Floor');
         nodesData = [

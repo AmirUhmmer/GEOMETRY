@@ -34,6 +34,20 @@ export async function SPRITES(viewer, selectedFloor) {
     viewableData.spriteSize = 26; // Sprites as points of size 24 x 24 pixels
 
     const myDataList = [
+      { position: { x: -1.5990402698516846, y: -35.01947784423828, z: 1 }, name: "Small Meeting/Office (DB8.-.1.004)",  pointID: "3b69ceda-a9e0-4b04-8a92-7ecccb6286a0" },
+      { position: { x: 14.28420639038086, y: -29.21438026428221, z: 1 }, name: "Office (DB8.-.1.005)",  pointID: "b343e138-36fb-4af4-80be-d266aca41db9" },
+      { position: { x: 23.6044921875, y: -25.988082885742188, z: 1 }, name: "Office (DB8.-.1.006)",  pointID: "7a97be73-e5f6-422b-ade9-6a14ca78b879" },
+      { position: { x: 32.92477798461914, y: -22.76178550720215, z: 1 }, name: "Office (DB8.-.1.007)",  pointID: "2c570a32-6987-4f6a-bac2-09572d9bcf56" }, //x -4  y +1 
+      { position: { x: 23.067581176757812, y: -9.72921085357666, z: 1 }, name: "Hot Desk (DB8.-.1.008)",  pointID: "c34c8e2d-67fe-49dc-af3f-4af4991e3f02" },
+      { position: { x: 20.28854751586914, y: 9.323418617248535, z: 1 }, name: "Office (DB8.-.1.009)",  pointID: "d695fb48-8698-41b3-a557-8dbb69524211" }, // y-1   x-4
+      { position: { x: 11.136373519897461, y: 5.81022834777832, z: 1 }, name: "Office (DB8.-.1.010)",  pointID: "d089bfc1-5b63-48d2-9c79-2ee5162b342e" },
+      { position: { x: 3.15217399597168, y: 2.513190269470215, z: 1 }, name: "Office (DB8.-.1.011)",  pointID: "d089bfc1-5b63-48d2-9c79-2ee5162b342e" },
+      { position: { x: -7.1676769256591797, y: -1.2160385102033615, z: 1 }, name: "Office (DB8.-.1.012)",  pointID: "bcf5cba9-1821-46c9-90e4-737860933e69" }, // y+1   x+4
+      { position: { x: -15.296846389770508, y: -4.4113433361053467, z: 1 }, name: "Office (DB8.-.1.013)",  pointID: "a674dc37-bd9a-4afe-a8e0-a04954293334" },
+
+
+
+
       { position: { x: -28.199254989624023, y: -63.891197204589844, z: 10 }, name: "Social Area (DB8.-.2.001)",  pointID: "193d3a83-b870-4d7b-83eb-ea73111b8c0a" },
       { position: { x: -10.616475105285645, y: -75.35884094238281, z: 10 }, name: "Office (DB8.-2.002)",  pointID: "d8d4faa1-2bc9-4809-8a25-08430813fc63" },
       { position: { x: -37.16954040527344, y: -86.9566421508789, z: 10 }, name: "Office (DB8.-2.003)",  pointID: "08d4abfb-ca40-4a35-91b4-3582388be8e5" },
