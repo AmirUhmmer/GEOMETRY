@@ -12,7 +12,8 @@ const config = {
     options: {
         encrypt: true,
         enableArithAbort: true
-    }
+    },
+    requestTimeout: 30000 // Increase timeout to 30 seconds
 };
 
 let router = express.Router();

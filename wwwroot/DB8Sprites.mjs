@@ -34,6 +34,8 @@ export async function SPRITES(viewer, selectedFloor) {
     viewableData.spriteSize = 26; // Sprites as points of size 24 x 24 pixels
 
     const myDataList = [
+      // first floor
+      { position: { x: -7.4544677734375, y: -50.523826599121094, z: 1 }, name: "Main Entrance (DB8.-.1.001)",  pointID: "b957051a-2cb0-4bcb-990c-3c34a6f627a7" },
       { position: { x: -1.5990402698516846, y: -35.01947784423828, z: 1 }, name: "Small Meeting/Office (DB8.-.1.004)",  pointID: "3b69ceda-a9e0-4b04-8a92-7ecccb6286a0" },
       { position: { x: 14.28420639038086, y: -29.21438026428221, z: 1 }, name: "Office (DB8.-.1.005)",  pointID: "b343e138-36fb-4af4-80be-d266aca41db9" },
       { position: { x: 23.6044921875, y: -25.988082885742188, z: 1 }, name: "Office (DB8.-.1.006)",  pointID: "7a97be73-e5f6-422b-ade9-6a14ca78b879" },
@@ -44,10 +46,14 @@ export async function SPRITES(viewer, selectedFloor) {
       { position: { x: 3.15217399597168, y: 2.513190269470215, z: 1 }, name: "Office (DB8.-.1.011)",  pointID: "d089bfc1-5b63-48d2-9c79-2ee5162b342e" },
       { position: { x: -7.1676769256591797, y: -1.2160385102033615, z: 1 }, name: "Office (DB8.-.1.012)",  pointID: "bcf5cba9-1821-46c9-90e4-737860933e69" }, // y+1   x+4
       { position: { x: -15.296846389770508, y: -4.4113433361053467, z: 1 }, name: "Office (DB8.-.1.013)",  pointID: "a674dc37-bd9a-4afe-a8e0-a04954293334" },
-
-
-
-
+      { position: { x: -24.996318817138672, y: -7.746861457824707, z: 1 }, name: "Office (DB8.-.1.014)",  pointID: "f545cc16-709c-46ca-8331-41463edead9f" }, // x-3   y-2
+      { position: { x: -44.996318817138672, y: -14.746861457824707, z: 1 }, name: "Social Area (DB8.-.1.017)",  pointID: "1da69c37-4364-4bdd-a40d-ec60078c5593" },
+      { position: { x: -53.81877136230469, y: -43.58452224731445, z: 1 }, name: "Office (DB8.-.1.018)",  pointID: "1d512e32-54df-4c23-ac36-25fb03665dfd" }, // x-1   y-3
+      { position: { x: -49.02860641479492, y: -55.136619567871094, z: 1 }, name: "Office (DB8.-.1.019)",  pointID: "d7b28135-4a1e-4251-b436-b21b630d0012" },
+      { position: { x: -45.227108001708984, y: -62.72303009033203, z: 1 }, name: "Office (DB8.-.1.020)",  pointID: "ce717192-968f-46b5-bb43-6fb73965da0f" },
+      { position: { x: -34.54344940185547, y: -73.68550872802734, z: 1 }, name: "Electronics Workshop (DB8.-.1.021)",  pointID: "2da239f8-ddab-4d43-823f-8797638123f2" },
+      { position: { x: -20.29170036315918, y: -68.0743637084961, z: 1 }, name: "Mechanical Workshop (DB8.-.1.022)",  pointID: "a3215104-8c66-4714-96f4-dcb5b3fb2ab2" },
+      // second floor
       { position: { x: -28.199254989624023, y: -63.891197204589844, z: 10 }, name: "Social Area (DB8.-.2.001)",  pointID: "193d3a83-b870-4d7b-83eb-ea73111b8c0a" },
       { position: { x: -10.616475105285645, y: -75.35884094238281, z: 10 }, name: "Office (DB8.-2.002)",  pointID: "d8d4faa1-2bc9-4809-8a25-08430813fc63" },
       { position: { x: -37.16954040527344, y: -86.9566421508789, z: 10 }, name: "Office (DB8.-2.003)",  pointID: "08d4abfb-ca40-4a35-91b4-3582388be8e5" },
