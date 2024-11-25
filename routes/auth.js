@@ -28,19 +28,19 @@ router.get('/api/auth/logout', function (req, res) {
     res.redirect('/');
 });
 
-router.get('/api/auth/callback', authCallbackMiddleware, function (req, res) {
-    res.redirect('/');
-});
-
 // router.get('/api/auth/callback', authCallbackMiddleware, function (req, res) {
-//     // Close the login window and optionally refresh the opener window
-//     res.send(`
-//         <script>
-//             window.opener.location.reload();  // Refresh the main window
-//             window.close();  // Close the login window
-//         </script>
-//     `);
+//     res.redirect('/');
 // });
+
+router.get('/api/auth/callback', authCallbackMiddleware, function (req, res) {
+    // Close the login window and optionally refresh the opener window
+    res.send(`
+        <script>
+            window.opener.location.reload();  // Refresh the main window
+            window.close();  // Close the login window
+        </script>
+    `);
+});
 
 
 router.get('/api/auth/token', authRefreshMiddleware, function (req, res) {
