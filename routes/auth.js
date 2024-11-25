@@ -11,9 +11,9 @@ const config = {
     database: 'SQLDB_DB8',
     options: {
         encrypt: true,
-        enableArithAbort: true
-    },
-    requestTimeout: 30000 // Increase timeout to 30 seconds
+        enableArithAbort: true,
+        trustServerCertificate: true, // Change to false in production for a secure setup
+    }
 };
 
 let router = express.Router();
@@ -27,9 +27,20 @@ router.get('/api/auth/logout', function (req, res) {
     res.redirect('/');
 });
 
+// router.get('/api/auth/callback', authCallbackMiddleware, function (req, res) {
+//     res.redirect('/');
+// });
+
 router.get('/api/auth/callback', authCallbackMiddleware, function (req, res) {
-    res.redirect('/');
+    // Close the login window and optionally refresh the opener window
+    res.send(`
+        <script>
+            window.opener.location.reload();  // Refresh the main window
+            window.close();  // Close the login window
+        </script>
+    `);
 });
+
 
 router.get('/api/auth/token', authRefreshMiddleware, function (req, res) {
     res.json(req.publicOAuthToken);
@@ -45,16 +56,29 @@ router.get('/api/auth/profile', authRefreshMiddleware, async function (req, res,
 });
 
 
-// Connect to Azure SQL and retrieve sensor value
+// Create a connection pool (this will be reused for all requests)
+let poolPromise;
+
+async function getPool() {
+    if (!poolPromise) {
+        // Create the pool only once on the first request
+        poolPromise = sql.connect(config);
+    }
+    return poolPromise;
+}
+
+// Route to retrieve sensor value
 router.get('/api/sensor/:location', async (req, res) => {
     const location = req.params.location;
-    const name = req.params.location;
     try {
-        let pool = await sql.connect(config);
-        let result = await pool.request()
+        // Get the connection pool
+        const pool = await getPool();
+
+        // Query the database
+        const result = await pool.request()
             .input('location', sql.VarChar, location)
             .query('SELECT TOP (1) [value], [observationTime] FROM [dbo].[LiveData] WHERE sensorId = @location ORDER BY observationTime DESC');
-        
+
         if (result.recordset.length > 0) {
             res.json({ value: result.recordset[0].value });
         } else {
@@ -66,54 +90,29 @@ router.get('/api/sensor/:location', async (req, res) => {
     }
 });
 
-// New route to fetch graph data based on the custom query
+// Route to fetch graph data
 router.get('/api/graphdata/:location', async (req, res) => {
     const location = req.params.location;
     try {
-        let pool = await sql.connect(config);
-        let result = await pool.request()
+        // Get the connection pool
+        const pool = await getPool();
+
+        // Query the database
+        const result = await pool.request()
             .input('location', sql.VarChar, location)
             .query(`
-                WITH Interval AS (
-                    SELECT CAST(CAST(GETDATE() AS DATE) AS DATETIME) AS IntervalStart
-                    UNION ALL
-                    SELECT DATEADD(MINUTE, 30, IntervalStart) 
-                    FROM Interval
-                    WHERE IntervalStart < CAST(GETDATE() AS DATETIME)
-                ),
-                LiveDataWithRank AS (
-                    SELECT 
-                        ld.sensorId,
-                        ld.observationTime,
-                        ld.value,
-                        ri.point_name,
-                        ri.is_point_of_furniture_name,
-                        ROW_NUMBER() OVER (PARTITION BY ld.sensorId, i.IntervalStart ORDER BY ABS(DATEDIFF(MINUTE, ld.observationTime, i.IntervalStart))) AS rn
-                    FROM 
-                        Interval i
-                    JOIN [dbo].[LiveData] ld
-                        ON ld.observationTime >= CAST(CAST(GETDATE() AS DATE) AS DATETIME)
-                        AND ld.observationTime <= GETDATE()
-                    JOIN [dbo].[RelynkIdentifier0711] ri
-                        ON ld.sensorId = ri.point_id
-                    WHERE 
-                        ri.point_name = 'Current'
-                        AND ri.point_id = @location
-                )
-                SELECT 
-                    FORMAT(DATEADD(MINUTE, DATEDIFF(MINUTE, 0, ld.observationTime) / 30 * 30, 0), 'HH:mm') AS observationTime,
+                SELECT TOP (4)
+                FORMAT(ld.observationTime, 'HH:mm - dd MMM') AS observationTime,
                     ld.value
-                FROM 
-                    LiveDataWithRank ld
-                WHERE 
-                    ld.rn = 1 -- Select only the closest observation time for each interval
-                ORDER BY 
-                    observationTime DESC;
-
+                FROM
+                    [dbo].[LiveData] ld
+                WHERE
+                    ld.sensorId = @location
+                ORDER BY
+                    ld.observationTime DESC
             `);
 
         if (result.recordset.length > 0) {
-            // Send back the data for the chart
             res.json(result.recordset);
         } else {
             res.status(404).send('No data found for the specified location');
@@ -123,7 +122,6 @@ router.get('/api/graphdata/:location', async (req, res) => {
         res.status(500).send('Error retrieving graph data');
     }
 });
-
 
 
 module.exports = router;

@@ -31,7 +31,7 @@ export async function SPRITES(viewer, selectedFloor) {
     const style = new DataVizCore.ViewableStyle(viewableType, spriteColor, spriteIconUrl);
     
     const viewableData = new DataVizCore.ViewableData();
-    viewableData.spriteSize = 26; // Sprites as points of size 24 x 24 pixels
+    viewableData.spriteSize = 30; // Sprites as points of size 24 x 24 pixels
 
     const myDataList = [
       // first floor
@@ -163,6 +163,8 @@ export async function SPRITES(viewer, selectedFloor) {
 
 
 
+// sample random numberrrrr
+
 
 async function onSpriteClicked(event, viewer) {
   // Check if the clicked event contains a valid sprite (dbId)
@@ -215,7 +217,7 @@ async function onSpriteClicked(event, viewer) {
 function generateRandomGraphData() {
   const data = [];
   const now = new Date();
-  const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 9, 0, 0);  // Start at 9:00 AM
+  const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 7, 0, 0);  // Start at 9:00 AM
 
   let currentTime = new Date(startOfDay);
 

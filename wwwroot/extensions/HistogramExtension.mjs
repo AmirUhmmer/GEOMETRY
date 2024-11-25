@@ -35,7 +35,7 @@ class HistogramExtension extends BaseExtension {
     }
 
     onToolbarCreated() {
-        this._barChartPanel = new HistogramPanel(this, 'dashboard-barchart-panel', 'Temperature Histogram', { x: 10, y: 10, chartType: 'bar' });
+        this._barChartPanel = new HistogramPanel(this, 'dashboard-barchart-panel', 'Temperature', { x: 10, y: 10, chartType: 'bar' });
         this._pieChartPanel = new HistogramPanel(this, 'dashboard-piechart-panel', 'Property Histogram', { x: 10, y: 420, chartType: 'doughnut' });
         this._barChartButton = this.createToolbarButton('dashboard-barchart-button', 'https://img.icons8.com/small/32/bar-chart.png', 'Show Property Histogram (Bar Chart)');
         this._barChartButton.onClick = () => {

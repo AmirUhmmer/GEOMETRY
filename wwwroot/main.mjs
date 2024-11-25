@@ -21,7 +21,20 @@ try {
         initTree('#tree', (id) => loadModel(viewer, window.btoa(id).replace(/=/g, '')));
     } else {
         login.innerText = 'Login';
-        login.onclick = () => window.location.replace('/api/auth/login');
+        // login.onclick = () => window.location.replace('/api/auth/login');
+        login.onclick = () => {
+            // Open the login in a new window/tab
+            const loginWindow = window.open('/api/auth/login', '_blank');
+            
+            // Poll to check if the login window has been closed
+            const checkWindowClosed = setInterval(() => {
+                if (loginWindow.closed) {
+                    clearInterval(checkWindowClosed);
+                    // Refresh the current page after the login window is closed
+                    window.location.reload();
+                }
+            }, 500);
+        };
     }
     login.style.visibility = 'visible';
 } catch (err) {

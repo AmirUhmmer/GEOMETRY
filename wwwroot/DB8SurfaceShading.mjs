@@ -13,25 +13,25 @@ export async function HEATMAP(viewer, selectedFloor) {
     if (selectedFloor === 1) {
         console.log('Rendering heatmap for the First Floor');
         nodesData = [
-        { name: "Main Entrance (DB8.-.1.001)", dbId: 25788, guid: "b957051a-2cb0-4bcb-990c-3c34a6f627a7" },
-        { name: "Entrance Area (DB8.-.1.002)", dbId: 25874, guid: "d9063147-d93d-4746-858b-e45d810d17d5" },
+        { name: "Main Entrance (DB8.-.1.001)"       , dbId: 25788, guid: "b957051a-2cb0-4bcb-990c-3c34a6f627a7" },
+        { name: "Entrance Area (DB8.-.1.002)"       , dbId: 25874, guid: "d9063147-d93d-4746-858b-e45d810d17d5" },
         { name: "Small Meeting/Office (DB8.-.1.004)", dbId: 25524, guid: "3b69ceda-a9e0-4b04-8a92-7ecccb6286a0" },
-        { name: "Office (DB8.-.1.005)", dbId: 25505, guid: "b343e138-36fb-4af4-80be-d266aca41db9" },
-        { name: "Office (DB8.-.1.006)", dbId: 25486, guid: "7a97be73-e5f6-422b-ade9-6a14ca78b879" },
-        { name: "Office (DB8.-.1.007)", dbId: 25435, guid: "2c570a32-6987-4f6a-bac2-09572d9bcf56" },
-        { name: "Hot Desk (DB8.-.1.008)", dbId: 25853, guid: "c34c8e2d-67fe-49dc-af3f-4af4991e3f02" },
-        { name: "Office (DB8.-.1.009)", dbId: 25452, guid: "d695fb48-8698-41b3-a557-8dbb69524211" },
-        { name: "Office (DB8.-.1.010)", dbId: 25466, guid: "d089bfc1-5b63-48d2-9c79-2ee5162b342e" },
-        { name: "Office (DB8.-.1.011)", dbId: 25580, guid: "fa29b828-4a93-4f89-91c7-0afc49c37ee1" },
-        { name: "Office (DB8.-.1.012)", dbId: 25600, guid: "bcf5cba9-1821-46c9-90e4-737860933e69" },
-        { name: "Office (DB8.-.1.013)", dbId: 25615, guid: "a674dc37-bd9a-4afe-a8e0-a04954293334" },
-        { name: "Office (DB8.-.1.014)", dbId: 25635, guid: "f545cc16-709c-46ca-8331-41463edead9f" },
-        { name: "Social Area (DB8.-.1.017)", dbId: 25924, guid: "1da69c37-4364-4bdd-a40d-ec60078c5593" },
-        { name: "Office (DB8.-.1.018)", dbId: 25419, guid: "1d512e32-54df-4c23-ac36-25fb03665dfd" },
-        { name: "Office (DB8.-.1.019)", dbId: 25400, guid: "d7b28135-4a1e-4251-b436-b21b630d0012" },
-        { name: "Office (DB8.-.1.020)", dbId: 25389, guid: "ce717192-968f-46b5-bb43-6fb73965da0f" },
+        { name: "Office (DB8.-.1.005)"              , dbId: 25505, guid: "b343e138-36fb-4af4-80be-d266aca41db9" },
+        { name: "Office (DB8.-.1.006)"              , dbId: 25486, guid: "7a97be73-e5f6-422b-ade9-6a14ca78b879" },
+        { name: "Office (DB8.-.1.007)"              , dbId: 25435, guid: "2c570a32-6987-4f6a-bac2-09572d9bcf56" },
+        { name: "Hot Desk (DB8.-.1.008)"            , dbId: 25853, guid: "c34c8e2d-67fe-49dc-af3f-4af4991e3f02" },
+        { name: "Office (DB8.-.1.009)"              , dbId: 25452, guid: "d695fb48-8698-41b3-a557-8dbb69524211" },
+        { name: "Office (DB8.-.1.010)"              , dbId: 25466, guid: "d089bfc1-5b63-48d2-9c79-2ee5162b342e" },
+        { name: "Office (DB8.-.1.011)"              , dbId: 25580, guid: "fa29b828-4a93-4f89-91c7-0afc49c37ee1" },
+        { name: "Office (DB8.-.1.012)"              , dbId: 25600, guid: "bcf5cba9-1821-46c9-90e4-737860933e69" },
+        { name: "Office (DB8.-.1.013)"              , dbId: 25615, guid: "a674dc37-bd9a-4afe-a8e0-a04954293334" },
+        { name: "Office (DB8.-.1.014)"              , dbId: 25635, guid: "f545cc16-709c-46ca-8331-41463edead9f" },
+        { name: "Social Area (DB8.-.1.017)"         , dbId: 25924, guid: "1da69c37-4364-4bdd-a40d-ec60078c5593" },
+        { name: "Office (DB8.-.1.018)"              , dbId: 25419, guid: "1d512e32-54df-4c23-ac36-25fb03665dfd" },
+        { name: "Office (DB8.-.1.019)"              , dbId: 25400, guid: "d7b28135-4a1e-4251-b436-b21b630d0012" },
+        { name: "Office (DB8.-.1.020)"              , dbId: 25389, guid: "ce717192-968f-46b5-bb43-6fb73965da0f" },
         { name: "Electronics Workshop (DB8.-.1.021)", dbId: 25373, guid: "2da239f8-ddab-4d43-823f-8797638123f2" },
-        { name: "Mechanical Workshop (DB8.-.1.022)", dbId: 25380, guid: "a3215104-8c66-4714-96f4-dcb5b3fb2ab2" },
+        { name: "Mechanical Workshop (DB8.-.1.022)" , dbId: 25380, guid: "a3215104-8c66-4714-96f4-dcb5b3fb2ab2" },
 
         ]
     } else if (selectedFloor === 2) {
@@ -97,77 +97,78 @@ export async function HEATMAP(viewer, selectedFloor) {
 
 
 
-    // try {
-    //     // Setup surface shading with heatmap data
-    //     await extension.setupSurfaceShading(viewer.model, heatmapData);
-    
-    //     extension0.registerSurfaceShadingColors("TEMP", [0x0000ff, 0x00ff00, 0xff0000]);
-    
-    //     // Function to query nodes in batches of 2 and render surface shading
-    //     async function queryNodesInPairsAndRender(nodes) {
-    //         // Loop through nodes in batches of 2
-    //         for (let i = 0; i < nodes.length; i += 2) {
-    //             const batch = nodes.slice(i, i + 2); // Get the pair of nodes
-                
-    //             // Fetch sensor values for the pair of nodes
-    //             const sensorValues = await Promise.all(batch.map(node => getSensorValue(node.hemyguid)));
-                
-    //             // Render surface shading for each node in the batch immediately after querying
-    //             batch.forEach((node, index) => {
-    //                 extension.renderSurfaceShading(node.name, "TEMP", () => sensorValues[index]);
-    //             });
-    //         }
-    //     }
-    
-    //     // Query the nodes in pairs and render surface shading
-    //     await queryNodesInPairsAndRender(nodes);
-    
-    // } catch (error) {
-    //     console.error('Failed to load SurfaceShadingExtension or render surface shading', error);
-    // }
-
     try {
         // Setup surface shading with heatmap data
         await extension.setupSurfaceShading(viewer.model, heatmapData);
-
+    
         extension0.registerSurfaceShadingColors("TEMP", [0x0000ff, 0x00ff00, 0xff0000]);
-
+    
         // Function to query nodes in batches of 2 and render surface shading
         async function queryNodesInPairsAndRender(nodes) {
+            // Loop through nodes in batches of 2
             for (let i = 0; i < nodes.length; i += 2) {
-                const nodePair = nodes.slice(i, i + 2);
-
-                // Perform the long-running getSensorValue operation in a non-blocking way
-                nodePair.forEach(node => {
-                    setTimeout(async () => {
-                        try {
-                            const sensorValues = await getSensorValue(node.hemyguid); // Your sensor fetching code
-                            
-                            nodePair.forEach((node, index) => {
-                                console.log(sensorValues);
-                                extension.renderSurfaceShading(node.name, "TEMP", () => sensorValues);
-                            });
-                        } catch (error) {
-                            console.error(`Error fetching sensor value for ${node.name}:`, error);
-                        }
-                    }, 0); // This sends the operation to the background
+                const batch = nodes.slice(i, i + 2); // Get the pair of nodes
+                
+                // Fetch sensor values for the pair of nodes
+                const sensorValues = await Promise.all(batch.map(node => getSensorValue(node.hemyguid)));
+                
+                // Render surface shading for each node in the batch immediately after querying
+                batch.forEach((node, index) => {
+                    extension.renderSurfaceShading(node.name, "TEMP", () => sensorValues[index]);
                 });
-
-                // Optionally add some delay to avoid overwhelming the server
-                await new Promise(resolve => setTimeout(resolve, 100)); // Pause between each batch
             }
-
-            // Apply the updates to the shading surface after the loop
-            await extension.updateSurfaceShading(viewer.model);
-            console.log('Heatmap rendered successfully!');
         }
-
-        // Start querying the nodes and rendering the heatmap
-        queryNodesInPairsAndRender(nodes);
-        
+    
+        // Query the nodes in pairs and render surface shading
+        await queryNodesInPairsAndRender(nodes);
+    
     } catch (error) {
-        console.error('Error in heatmap setup or sensor fetching:', error);
+        console.error('Failed to load SurfaceShadingExtension or render surface shading', error);
     }
+
+//     try {
+//         // Setup surface shading with heatmap data
+//         await extension.setupSurfaceShading(viewer.model, heatmapData);
+
+//         extension0.registerSurfaceShadingColors("TEMP", [0x0000ff, 0x00ff00, 0xff0000]);
+
+//         // Function to query nodes in batches of 2 and render surface shading
+//         async function queryNodesInPairsAndRender(nodes) {
+//             for (let i = 0; i < nodes.length; i += 2) {
+//                 const nodePair = nodes.slice(i, i + 2);
+
+//                 // Perform the long-running getSensorValue operation in a non-blocking way
+//                 nodePair.forEach(node => {
+//                     setTimeout(async () => {
+//                         try {
+//                             const sensorValues = await getSensorValue(node.hemyguid); // Your sensor fetching code
+                            
+//                             nodePair.forEach((node, index) => {
+//                                 console.log(sensorValues);
+//                                 extension.renderSurfaceShading(node.name, "TEMP", () => sensorValues);
+//                             });
+//                         } catch (error) {
+//                             console.error(`Error fetching sensor value for ${node.name}:`, error);
+//                         }
+//                     }, 0); // This sends the operation to the background
+//                 });
+
+//                 // Optionally add some delay to avoid overwhelming the server
+//                 await new Promise(resolve => setTimeout(resolve, 100)); // Pause between each batch
+//             }
+
+//             // Apply the updates to the shading surface after the loop
+//             await extension.updateSurfaceShading(viewer.model);
+//             console.log('Heatmap rendered successfully!');
+//         }
+
+//         // Start querying the nodes and rendering the heatmap
+//         queryNodesInPairsAndRender(nodes);
+        
+//     } catch (error) {
+//         console.error('Error in heatmap setup or sensor fetching:', error);
+//     }
+
     
 }
 
@@ -201,6 +202,15 @@ export async function HEATMAP(viewer, selectedFloor) {
 // }
 
 
+
+
+
+
+
+
+
+
+// SAMPLE DATA 
 
 async function getSensorValue(location) {
     try {

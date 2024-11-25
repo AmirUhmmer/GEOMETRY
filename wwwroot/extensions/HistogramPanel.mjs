@@ -5,8 +5,8 @@ export class HistogramPanel extends Autodesk.Viewing.UI.DockingPanel {
         this.extension = extension;
         this.container.style.left = (options.x || 0) + 'px';
         this.container.style.top = (options.y || 0) + 'px';
-        this.container.style.width = (options.width || 500) + 'px';
-        this.container.style.height = (options.height || 400) + 'px';
+        this.container.style.width = (options.width || 300) + 'px';
+        this.container.style.height = (options.height || 200) + 'px';
         this.container.style.resize = 'none';
         this.container.style.overflow = 'hidden';  // Hide overflow
     }
@@ -33,18 +33,26 @@ export class HistogramPanel extends Autodesk.Viewing.UI.DockingPanel {
     initialize() {
         this.title = this.createTitleBar(this.titleLabel || this.container.id);
         this.initializeMoveHandlers(this.title);
+        this.closer = this.createCloseButton();
+        this.container.appendChild(this.closer);
         this.container.appendChild(this.title);
     
         // Create content to display the dbId
         this.content = document.createElement('div');
         this.content.style.height = '100%';
         this.content.style.backgroundColor = '#333';
-        this.content.style.padding = '2em'; // Increase padding for more space
+        this.content.style.padding = '1em'; // Increase padding for more space
     
         // Add placeholder for displaying dbId
         this.dbIdDisplay = document.createElement('div');
-        this.dbIdDisplay.innerHTML = '<strong>Selected Room:</strong> <span id="spriteDbId">None</span>';
+        this.dbIdDisplay1 = document.createElement('div');
+        this.dbIdDisplay2 = document.createElement('div');
+        this.dbIdDisplay.innerHTML = '<strong style="display: inline-block; padding-top: -10px;">Selected Room:</strong> <span id="spriteDbId">None</span>';
+        this.dbIdDisplay1.innerHTML = '<strong style="display: inline-block; padding-top: 10px;">Temperature: </strong> <span id="spriteTemp">0</span>';
+        this.dbIdDisplay2.innerHTML = '<strong style="display: inline-block; padding-top: 10px;">As of </strong> <span id="spriteTime">Lorem Ipsum</span>';
         this.content.appendChild(this.dbIdDisplay);
+        this.content.appendChild(this.dbIdDisplay1);
+        this.content.appendChild(this.dbIdDisplay2);
     
         // Create a canvas element for the bar chart
         this.chartContainer = document.createElement('div');
@@ -56,58 +64,58 @@ export class HistogramPanel extends Autodesk.Viewing.UI.DockingPanel {
         this.container.appendChild(this.content);
     
         // Initialize the chart
-        this.initializeChart();
+        // this.initializeChart();
     }
     
-    initializeChart() {
-        const ctx = this.content.querySelector('#spriteBarChart').getContext('2d');
+    // initializeChart() {
+    //     const ctx = this.content.querySelector('#spriteBarChart').getContext('2d');
     
-        this.chart = new Chart(ctx, {
-            type: 'line', 
-            data: {
-                labels: [], // Empty labels to start with
-                datasets: [{
-                    label: 'Temperature',
-                    data: [], // Empty data to start with
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: '#36A2EB',
-                    borderWidth: 2,
-                    fill: true,
-                    tension: 0.4
-                }]
-            },
-            options: {
-                responsive: true, // Ensure it is responsive to the container size
-                maintainAspectRatio: false, // Allow it to expand freely
-                scales: {
-                    x: {
-                        ticks: {
-                            maxRotation: 0, // Keeps x-axis labels from rotating
-                            minRotation: 0,
-                            padding: 10 // Increase space between ticks
-                        },
-                        grid: {
-                            display: false // Hides grid lines to give it a cleaner look
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            stepSize: 5 // Adjust step size to have more spread between y-values
-                        }
-                    }
-                },
-                layout: {
-                    padding: {
-                        top: 20,
-                        left: 20,
-                        right: 20,
-                        bottom: 20
-                    }
-                }
-            }
-        });
-    }
+    //     this.chart = new Chart(ctx, {
+    //         type: 'line', 
+    //         data: {
+    //             labels: [], // Empty labels to start with
+    //             datasets: [{
+    //                 label: 'Temperature',
+    //                 data: [], // Empty data to start with
+    //                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
+    //                 borderColor: '#36A2EB',
+    //                 borderWidth: 2,
+    //                 fill: true,
+    //                 tension: 0.4
+    //             }]
+    //         },
+    //         options: {
+    //             responsive: true, // Ensure it is responsive to the container size
+    //             maintainAspectRatio: false, // Allow it to expand freely
+    //             scales: {
+    //                 x: {
+    //                     ticks: {
+    //                         maxRotation: 0, // Keeps x-axis labels from rotating
+    //                         minRotation: 0,
+    //                         padding: 10 // Increase space between ticks
+    //                     },
+    //                     grid: {
+    //                         display: false // Hides grid lines to give it a cleaner look
+    //                     }
+    //                 },
+    //                 y: {
+    //                     beginAtZero: true,
+    //                     ticks: {
+    //                         stepSize: 5 // Adjust step size to have more spread between y-values
+    //                     }
+    //                 }
+    //             },
+    //             layout: {
+    //                 padding: {
+    //                     top: 20,
+    //                     left: 20,
+    //                     right: 20,
+    //                     bottom: 20
+    //                 }
+    //             }
+    //         }
+    //     });
+    // }
     
     
     
@@ -147,24 +155,26 @@ export class HistogramPanel extends Autodesk.Viewing.UI.DockingPanel {
         console.log('Updating chart with data for: ' + name);
     
         const spriteDbIdElement = this.content.querySelector('#spriteDbId');
+        const spriteTempElement = this.content.querySelector('#spriteTemp');
+        const spriteTimeElement = this.content.querySelector('#spriteTime');
         if (spriteDbIdElement) {
             spriteDbIdElement.textContent = name ? name : 'None';
+            spriteTempElement.textContent = data[0].value + '°C';
+            spriteTimeElement.textContent = data[0].observationTime
         } else {
             console.error('Failed to find #spriteDbId element.');
         }
-
-        //uncomment after test
     
-        // Prepare the data for the chart
-        const labels = data.map(item => item.observationTime); // observationTime for x-axis
-        const values = data.map(item => item.value); // value for y-axis
+        // // Prepare the data for the chart
+        // const labels = data.map(item => item.observationTime); // observationTime for x-axis
+        // const values = data.map(item => item.value); // value for y-axis
     
-        // Update the chart
-        this.chart.data.labels = labels;
-        this.chart.data.datasets[0].data = values;
+        // // Update the chart
+        // this.chart.data.labels = labels;
+        // this.chart.data.datasets[0].data = values;
     
-        // Re-render the chart
-        this.chart.update();
+        // // Re-render the chart
+        // this.chart.update();
     }
 
 
