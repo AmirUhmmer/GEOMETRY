@@ -33,11 +33,12 @@ router.get('/api/auth/logout', function (req, res) {
 // });
 
 router.get('/api/auth/callback', authCallbackMiddleware, function (req, res) {
-    // Close the login window and optionally refresh the opener window
+    const publicToken = req.session.public_token;
+    // Send the token to the parent window using postMessage
     res.send(`
         <script>
-            // window.opener.location.reload();  // Refresh the main window
-            window.close();  // Close the login window
+            window.opener.postMessage({ token: '${publicToken}' }, '*');
+            window.close();
         </script>
     `);
 });

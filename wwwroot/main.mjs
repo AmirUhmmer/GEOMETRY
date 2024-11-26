@@ -22,18 +22,23 @@ try {
     } else {
         login.innerText = 'Login';
         // login.onclick = () => window.location.replace('/api/auth/login');
+        
         login.onclick = () => {
-            // Open the login in a new window/tab
-            const loginWindow = window.open('/api/auth/login', '_blank');
-            
-            // Poll to check if the login window has been closed
-            const checkWindowClosed = setInterval(() => {
-                if (loginWindow.closed) {
-                    clearInterval(checkWindowClosed);
-                    // Refresh the current page after the login window is closed
+            // Open login in a popup window
+            const loginWindow = window.open('/api/auth/login', 'Login', 'width=600,height=600');
+        
+            // Listen for the authentication token from the popup window
+            window.addEventListener('message', (event) => {
+                if (event.origin !== window.location.origin) {
+                    return; // Ignore messages from other origins
+                }
+                const { token } = event.data;
+                if (token) {
+                    // Save the token and refresh the page or load viewer
+                    // You can now use this token to make API calls
                     window.location.reload();
                 }
-            }, 500);
+            });
         };
     }
     login.style.visibility = 'visible';
