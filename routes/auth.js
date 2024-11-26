@@ -36,7 +36,7 @@ router.get('/api/auth/callback', authCallbackMiddleware, function (req, res) {
     // Close the login window and optionally refresh the opener window
     res.send(`
         <script>
-            window.opener.location.reload();  // Refresh the main window
+            // window.opener.location.reload();  // Refresh the main window
             window.close();  // Close the login window
         </script>
     `);
