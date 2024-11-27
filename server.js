@@ -8,6 +8,16 @@ const path = require('path');
 
 let app = express();
 
+
+// Set security headers
+app.use((req, res, next) => {
+    res.setHeader('Content-Security-Policy', 'frame-ancestors https://semydev.crm4.dynamics.com/');
+    res.setHeader('X-Frame-Options', 'ALLOW-FROM https://semydev.crm4.dynamics.com/');
+    next();
+  });
+
+  
+
 // Serve static files from 'wwwroot' directory
 app.use(express.static(path.join(__dirname, 'wwwroot')));
 
