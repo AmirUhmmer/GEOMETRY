@@ -28,9 +28,9 @@ router.get('/api/auth/logout', function (req, res) {
     res.redirect('/');
 });
 
-router.get('/api/auth/callback', authCallbackMiddleware, function (req, res) {
-    res.redirect('/');
-});
+// router.get('/api/auth/callback', authCallbackMiddleware, function (req, res) {
+//     res.redirect('/');
+// });
 
 // router.get('/api/auth/callback', authCallbackMiddleware, function (req, res) {
 //     const publicToken = req.session.public_token;
@@ -42,6 +42,22 @@ router.get('/api/auth/callback', authCallbackMiddleware, function (req, res) {
 //         </script>
 //     `);
 // });
+
+
+router.get('/api/auth/callback', authCallbackMiddleware, function (req, res) {
+    const publicToken = req.session.public_token;
+
+    // Send the token back to the parent window using postMessage
+    res.send(`
+        <script>
+            // Post message back to the parent window with the token
+            window.opener.postMessage({ token: '${publicToken}' }, '*');
+            window.close(); // Close the current callback window (which is an iframe)
+        </script>
+    `);
+});
+
+
 
 
 router.get('/api/auth/token', authRefreshMiddleware, function (req, res) {
