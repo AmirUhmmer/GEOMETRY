@@ -28,20 +28,20 @@ router.get('/api/auth/logout', function (req, res) {
     res.redirect('/');
 });
 
-// router.get('/api/auth/callback', authCallbackMiddleware, function (req, res) {
-//     res.redirect('/');
-// });
-
 router.get('/api/auth/callback', authCallbackMiddleware, function (req, res) {
-    const publicToken = req.session.public_token;
-    // Send the token to the parent window using postMessage
-    res.send(`
-        <script>
-            window.opener.postMessage({ token: '${publicToken}' }, '*');
-            window.close();
-        </script>
-    `);
+    res.redirect('/');
 });
+
+// router.get('/api/auth/callback', authCallbackMiddleware, function (req, res) {
+//     const publicToken = req.session.public_token;
+//     // Send the token to the parent window using postMessage
+//     res.send(`
+//         <script>
+//             window.opener.postMessage({ token: '${publicToken}' }, '*');
+//             window.close();
+//         </script>
+//     `);
+// });
 
 
 router.get('/api/auth/token', authRefreshMiddleware, function (req, res) {

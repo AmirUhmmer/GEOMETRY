@@ -21,25 +21,25 @@ try {
         initTree('#tree', (id) => loadModel(viewer, window.btoa(id).replace(/=/g, '')));
     } else {
         login.innerText = 'Login';
-        // login.onclick = () => window.location.replace('/api/auth/login');
+        login.onclick = () => window.location.replace('/api/auth/login');
         
-        login.onclick = () => {
-            // Open login in a popup window
-            const loginWindow = window.open('/api/auth/login', 'Login', 'width=600,height=600');
+        // login.onclick = () => {
+        //     // Open login in a popup window
+        //     const loginWindow = window.open('/api/auth/login', 'Login', 'width=600,height=600');
         
-            // Listen for the authentication token from the popup window
-            window.addEventListener('message', (event) => {
-                if (event.origin !== window.location.origin) {
-                    return; // Ignore messages from other origins
-                }
-                const { token } = event.data;
-                if (token) {
-                    // Save the token and refresh the page or load viewer
-                    // You can now use this token to make API calls
-                    window.location.reload();
-                }
-            });
-        };
+        //     // Listen for the authentication token from the popup window
+        //     window.addEventListener('message', (event) => {
+        //         if (event.origin !== window.location.origin) {
+        //             return; // Ignore messages from other origins
+        //         }
+        //         const { token } = event.data;
+        //         if (token) {
+        //             // Save the token and refresh the page or load viewer
+        //             // You can now use this token to make API calls
+        //             window.location.reload();
+        //         }
+        //     });
+        // };
     }
     login.style.visibility = 'visible';
 } catch (err) {
