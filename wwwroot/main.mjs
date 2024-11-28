@@ -76,12 +76,14 @@ function handleTokenInURL() {
 }
 
 // Check if the user is logged in by checking for a token in localStorage
-function checkAuthStatus() {
+async function checkAuthStatus() {
     const storedToken = localStorage.getItem('authToken');
     
     if (storedToken) {
         // Token exists, user is logged in
-        login.innerText = 'Logout';
+        const resp = await fetch('/api/auth/profile');
+        const user = await resp.json();
+        login.innerText = `Logout (${user.name})`;
         login.onclick = () => {
             // Logout logic
             localStorage.removeItem('authToken');

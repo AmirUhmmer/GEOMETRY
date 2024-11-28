@@ -33,9 +33,10 @@ export class HistogramPanel extends Autodesk.Viewing.UI.DockingPanel {
     initialize() {
         this.title = this.createTitleBar(this.titleLabel || this.container.id);
         this.initializeMoveHandlers(this.title);
+        this.container.appendChild(this.title);
+
         this.closer = this.createCloseButton();
         this.container.appendChild(this.closer);
-        this.container.appendChild(this.title);
     
         // Create content to display the dbId
         this.content = document.createElement('div');
