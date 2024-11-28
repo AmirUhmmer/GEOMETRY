@@ -81,8 +81,8 @@ async function checkAuthStatus() {
     
     if (storedToken) {
         // Token exists, user is logged in
-        const resp = await fetch('/api/auth/profile');
-        const user = await resp.json();
+        // const resp = await fetch('/api/auth/profile');
+        // const user = await resp.json();
         login.innerText = `Logout`;
         login.onclick = () => {
             // Logout logic
