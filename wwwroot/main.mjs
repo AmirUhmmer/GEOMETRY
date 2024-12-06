@@ -53,8 +53,9 @@
 
 
 
-import { initViewer, loadModel } from './viewer.js';
-import { initTree } from './sidebar.js';
+import { initViewer, loadModel } from './viewer.mjs';
+import { initTree } from './sidebar.mjs';
+
 
 const login = document.getElementById('login');
 

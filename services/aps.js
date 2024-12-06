@@ -30,7 +30,18 @@ service.authCallbackMiddleware = async (req, res, next) => {
 };
 
 service.authRefreshMiddleware = async (req, res, next) => {
-    const { refresh_token, expires_at } = req.session;
+    // const { refresh_token, expires_at } = req.session;
+
+    const refresh_token = req.headers['x-refresh-token'];
+    const expires_at = req.headers['x-expires-at'];
+    const internal_token = req.headers['x-internal-token'];
+
+
+    // Optionally, you can store refresh_token, expires_at, and internal_token in the session or use them directly
+    req.session.refresh_token = refresh_token;  // Store or update session
+    req.session.expires_at = expires_at;
+    req.session.internal_token = internal_token;
+    
     if (!refresh_token) {
         res.status(401).end();
         return;
