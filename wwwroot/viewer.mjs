@@ -8,10 +8,18 @@ import './extensions/HistogramExtension.mjs';
 
 async function getAccessToken(callback) {
     try {
-        const resp = await fetch('/api/auth/token');
-        if (!resp.ok)
-            throw new Error(await resp.text());
-        const { access_token, expires_in } = await resp.json();
+        // const resp = await fetch('/api/auth/token');
+
+        const access_token = localStorage.getItem('authToken');
+        const refreshToken = localStorage.getItem('refreshToken');
+        const expires_in = localStorage.getItem('expires_at');
+        const internal_token = localStorage.getItem('internal_token');
+
+
+        // if (!resp.ok)
+        //     throw new Error(await resp.text());
+        // const { access_token, expires_in } = await resp.json();
+        
         callback(access_token, expires_in);
     } catch (err) {
         alert('Could not obtain access token. See the console for more details.');
@@ -77,8 +85,16 @@ export function initViewer(container) {
                     // console.log(event);
                     const selectedLevelIndex = event.levelIndex; // Get the level index from the event
                     console.log(`Selected Floor: ${selectedLevelIndex}`);
-                    HEATMAP(viewer, selectedLevelIndex); // Pass selected floor to the HEATMAP function
-                    SPRITES(viewer, selectedLevelIndex);
+
+
+                    // Check if the loaded model is named "DB8"
+                    const modelName = viewer.model.getDocumentNode().data.name;
+                    console.log(modelName);
+                    if (modelName === 'DB8-SEMY-ARST-ASBUILT') {
+                        HEATMAP(viewer, selectedLevelIndex); // Call HEATMAP only if the model name is DB8
+                        SPRITES(viewer, selectedLevelIndex); // SPRITES will be called
+                    }
+                    
                 });
 
                 // Optionally, you can set a default floor after loading the extension

@@ -44,32 +44,66 @@ router.get('/api/auth/logout', function (req, res) {
 // });
 
 
-router.get('/api/auth/callback', authCallbackMiddleware, function (req, res) {
-    const publicToken = req.session.public_token;
+// router.get('/api/auth/callback', authCallbackMiddleware, function (req, res) {
+//     const publicToken = req.session.public_token;
 
-    // Send the token back to the parent window using postMessage
+//     // Send the token back to the parent window using postMessage
+//     res.send(`
+//         <script>
+//             // Post message back to the parent window with the token
+//             window.opener.postMessage({ token: '${publicToken}' }, '*');
+//             window.close(); // Close the current callback window (which is an iframe)
+//         </script>
+//     `);
+// });
+
+
+
+
+router.get('/api/auth/callback', authCallbackMiddleware, (req, res) => {
+    const publicToken = req.session.public_token;
+    const refreshToken = req.session.refresh_token;
+    const expires_at = req.session.expires_at;
+    const internal_token = req.session.internal_token;
+
+     // window.opener.postMessage({ token: '${publicToken}' }, window.location.origin);
+
     res.send(`
         <script>
-            // Post message back to the parent window with the token
-            window.opener.postMessage({ token: '${publicToken}' }, '*');
-            window.close(); // Close the current callback window (which is an iframe)
+            if (window.opener) {
+                // Send the token back to the parent window
+               
+                window.opener.postMessage({ token: '${publicToken}', refreshToken: '${refreshToken}', expires_at: '${expires_at}', internal_token: '${internal_token}' }, window.location.origin);
+
+                window.close();  // Close the popup
+            }
         </script>
     `);
 });
-
-
 
 
 router.get('/api/auth/token', authRefreshMiddleware, function (req, res) {
     res.json(req.publicOAuthToken);
 });
 
-router.get('/api/auth/profile', authRefreshMiddleware, async function (req, res, next) {
+
+// router.get('/api/auth/profile', authRefreshMiddleware, async function (req, res, next) {
+//     try {
+//         const profile = await getUserProfile(req.internalOAuthToken.access_token);
+//         res.json({ token:getUserProfile(req.internalOAuthToken.access_token), name: `${profile.name}` });
+//     } catch (err) {
+//         next(err);
+//     }
+// });
+
+
+router.get('/api/auth/profile', async function (req, res, next) {
     try {
-        const profile = await getUserProfile(req.internalOAuthToken.access_token);
+        const authToken = req.headers.authorization?.split(' ')[1]; // Extract token from headers
+        const profile = await getUserProfile(authToken);
         res.json({ name: `${profile.name}` });
     } catch (err) {
-        next(err);
+        next('ERROR: ' + err);
     }
 });
 

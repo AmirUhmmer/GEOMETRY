@@ -8,6 +8,19 @@ const path = require('path');
 
 let app = express();
 
+// Example: Setting cookies in your Express app
+app.use(session({
+    secret: SERVER_SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 24 * 60 * 60 * 1000,  // 1 day
+        secure: true,                 // Cookie will only be sent over HTTPS
+        sameSite: 'None',             // Allow cookies in cross-origin iframes
+    }
+}));
+
+
 // Serve static files from 'wwwroot' directory
 app.use(express.static(path.join(__dirname, 'wwwroot')));
 
