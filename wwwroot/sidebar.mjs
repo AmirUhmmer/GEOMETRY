@@ -16,8 +16,8 @@ async function getJSON(url) {
     const internal_token = localStorage.getItem('internal_token');
 
 
-    console.log("Request URL:", url);
-    console.log("Authorization Header:", `Bearer ${token}`);
+    // console.log("Request URL:", url);
+    // console.log("Authorization Header:", `Bearer ${token}`);
 
     const resp = await fetch(url, {
         headers: {
