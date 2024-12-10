@@ -55,16 +55,16 @@ export function initViewer(container) {
 
                     const instanceTree = viewer.model.getInstanceTree();
 
-        instanceTree.enumNodeFragments(dbId, (fragId) => {
-            const fragList = viewer.model.getFragmentList();
-            const matrix = new THREE.Matrix4();
-            fragList.getWorldMatrix(fragId, matrix);
+                    instanceTree.enumNodeFragments(dbId, (fragId) => {
+                        const fragList = viewer.model.getFragmentList();
+                        const matrix = new THREE.Matrix4();
+                        fragList.getWorldMatrix(fragId, matrix);
 
-            const position = new THREE.Vector3();
-            position.setFromMatrixPosition(matrix);
+                        const position = new THREE.Vector3();
+                        position.setFromMatrixPosition(matrix);
 
-            console.log(`World Coordinates: x=${position.x}, y=${position.y}, z=${position.z}`);
-        });
+                        console.log(`World Coordinates: x=${position.x}, y=${position.y}, z=${position.z}`);
+                    });
                     // // Get the screen coordinates from the mouse click
                     // const screenPoint = new THREE.Vector2(event.canvasX, event.canvasY);
                         
@@ -81,6 +81,7 @@ export function initViewer(container) {
 
             viewer.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, function () {
                 if (viewer.model) {
+
                     viewer.loadExtension('Autodesk.AEC.LevelsExtension').then(function(levelsExt) {
                         levelsExt.floorSelector.addEventListener(Autodesk.AEC.FloorSelector.SELECTED_FLOOR_CHANGED, function(event) {
                             // const selectedFloorName = event.floor.name;
@@ -96,16 +97,26 @@ export function initViewer(container) {
                                 HEATMAP(viewer, selectedLevelIndex); // Call HEATMAP only if the model name is DB8
                                 SPRITES(viewer, selectedLevelIndex); // SPRITES will be called
                             }
-        
-                            viewer.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, function () {
-                                if (viewer.model) {
-                                }
-                            });
                             
                         });
         
                         // Optionally, you can set a default floor after loading the extension
                         // levelsExt.floorSelector.selectFloor(0, true); // Replace 0 with the default floor index if needed
+                    });
+
+
+                    const overlay = document.getElementById('overlay');
+
+                    overlay.style.visibility = 'visible';
+
+
+                    document.getElementById("search").addEventListener("click", function first() {
+                        viewer.search(
+                          document.getElementById("filter").value,
+                          function (dbIDs) {
+                            viewer.isolate(dbIDs);
+                            viewer.fitToView(dbIDs);
+                        });
                     });
                 }
             });

@@ -9,6 +9,13 @@ body, html {
     position: absolute;
 }
 
+#overlay {
+    position: absolute;
+    left: 31em;
+    top: 3.5em;
+    z-index: 2;
+  }
+
 #header {
     height: 3em;
     width: 100%;
@@ -62,6 +69,21 @@ body, html {
         width: 100%;
         top: 25%;
         bottom: 0;
+    }
+     /* Adjust #overlay for smaller screens */
+     #overlay {
+        left: 2em; /* Smaller left margin */
+        top: 2em; /* Reduce top margin */
+        width: 100%; /* Make overlay take more space */
+        min-width: 150px; /* Smaller min-width for small screens */
+    }
+}
+
+
+@media (max-width: 1900px) {
+     /* Adjust #overlay for smaller screens */
+     #overlay {
+        left: 25em; /* Smaller left margin */
     }
 }
 
