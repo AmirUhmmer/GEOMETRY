@@ -86,6 +86,34 @@ try {
             window.location.reload();  // Reload the page after logout
         };
 
+
+        // retrieve query parameters from the URL
+        let params = {};
+        let queryString = window.location.search.substring(1);
+        let queryParts = queryString.split("&");
+        for (let i = 0; i < queryParts.length; i++) {
+            let param = queryParts[i].split("=");
+            params[decodeURIComponent(param[0])] = decodeURIComponent(param[1]);
+        }
+
+        // get the entity name and record ID
+        
+        let entityType = params["etn"];  // The entity type name (e.g., iotdatapoint)
+        let recordId = params["id"];     // The unique identifier (GUID) of the record
+
+        // Log the full URL to the console
+        let fullURL = window.location.href;
+        console.log("Full URL:", fullURL); // This will log the full URL, e.g., http://localhost:8080/index.html?etn=iotdatapoint&id=12345678-1234-1234-1234-123456789abc
+
+
+        // Now you can use `entityType` and `recordId` in your web app logic
+        console.log("Entity Type:", entityType);
+        console.log("Record ID:", recordId);
+
+
+
+
+
         // Initialize the viewer and sidebar
         const viewer = await initViewer(document.getElementById('preview'));
 
