@@ -98,7 +98,7 @@ try {
 
         // get the entity name and record ID
         
-        let entityType = params["etn"];  // The entity type name (e.g., iotdatapoint)
+        let entityType = params["typename"];  // The entity type name (e.g., iotdatapoint)
         let recordId = params["id"];     // The unique identifier (GUID) of the record
 
         // Log the full URL to the console
@@ -112,21 +112,31 @@ try {
 
 
 
-
-
         // Initialize the viewer and sidebar
         const viewer = await initViewer(document.getElementById('preview'));
 
         // initTree('#tree', (id) => loadModel(viewer, window.btoa(id).replace(/=/g, '')));
 
-        // Define a sample URN for the case when no ID is available
-        const DB8 = 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnhkWFJlcVYwVDFhem9XdWVFaVNuemc/dmVyc2lvbj0xNg';
+
+        // Mapping of recordId to geometry URN values
+        const geometryMap = {
+            //DB8
+            '2e85182d-a8b7-ef11-b8e8-7c1e5275e0ca': 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnhkWFJlcVYwVDFhem9XdWVFaVNuemc/dmVyc2lvbj0xNg',
+            
+            //HG62
+            '766fb31a-a8b7-ef11-b8e8-7c1e5275e0ca': 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnZGZ01YNjRUVDBDcWU4THhZa2RvVUE/dmVyc2lvbj0xNw'
+
+        };
+
+        // Default geometry if no match is found
+        let geometry = geometryMap[recordId] || 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnhkWFJlcVYwVDFhem9XdWVFaVNuemc/dmVyc2lvbj0xNg';
+
 
         // Initialize the tree and handle model loading
         initTree('#tree', (id) => {
             // If no ID is provided, use the sample URN
             console.log(id);
-            const urn = id !== 0 ? window.btoa(id).replace(/=/g, '') : DB8;
+            const urn = id !== 0 ? window.btoa(id).replace(/=/g, '') : geometry;
             loadModel(viewer, urn);
         });
 
