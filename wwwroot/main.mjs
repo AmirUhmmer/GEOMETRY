@@ -88,7 +88,19 @@ try {
 
         // Initialize the viewer and sidebar
         const viewer = await initViewer(document.getElementById('preview'));
-        initTree('#tree', (id) => loadModel(viewer, window.btoa(id).replace(/=/g, '')));
+
+        // initTree('#tree', (id) => loadModel(viewer, window.btoa(id).replace(/=/g, '')));
+
+        // Define a sample URN for the case when no ID is available
+        const DB8 = 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnhkWFJlcVYwVDFhem9XdWVFaVNuemc/dmVyc2lvbj0xNg';
+
+        // Initialize the tree and handle model loading
+        initTree('#tree', (id) => {
+            // If no ID is provided, use the sample URN
+            console.log(id);
+            const urn = id !== 0 ? window.btoa(id).replace(/=/g, '') : DB8;
+            loadModel(viewer, urn);
+        });
 
     } else {
         login.innerText = 'Login';

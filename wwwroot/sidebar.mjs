@@ -16,7 +16,7 @@ async function getJSON(url) {
     const internal_token = localStorage.getItem('internal_token');
 
 
-    // console.log("Request URL:", url);
+    console.log("Request URL:", url);
     // console.log("Authorization Header:", `Bearer ${token}`);
 
     const resp = await fetch(url, {
@@ -85,6 +85,12 @@ export function initTree(selector, onSelectionChanged) {
             }
         }
     });
+
+    // When tree is fully loaded, trigger onSelectionChanged with "0"
+    tree.on('model.loaded', function() {
+        onSelectionChanged(0);
+    });
+
     tree.on('node.click', function (event, node) {
         event.preventTreeDefault();
         const tokens = node.id.split('|');
