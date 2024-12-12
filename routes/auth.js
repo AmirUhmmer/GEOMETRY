@@ -1,5 +1,10 @@
 const express = require('express');
+const Axios = require('axios');
 const { getAuthorizationUrl, authCallbackMiddleware, authRefreshMiddleware, getUserProfile } = require('../services/aps.js');
+const { APS_CLIENT_ID, APS_CLIENT_SECRET } = require('../config.js');
+
+var scopes = 'data:read data:write';
+const querystring = require('querystring');
 
 const sql = require('mssql');
 
@@ -28,37 +33,6 @@ router.get('/api/auth/logout', function (req, res) {
     res.redirect('/');
 });
 
-// router.get('/api/auth/callback', authCallbackMiddleware, function (req, res) {
-//     res.redirect('/');
-// });
-
-// router.get('/api/auth/callback', authCallbackMiddleware, function (req, res) {
-//     const publicToken = req.session.public_token;
-//     // Send the token to the parent window using postMessage
-//     res.send(`
-//         <script>
-//             window.opener.postMessage({ token: '${publicToken}' }, '*');
-//             window.close();
-//         </script>
-//     `);
-// });
-
-
-// router.get('/api/auth/callback', authCallbackMiddleware, function (req, res) {
-//     const publicToken = req.session.public_token;
-
-//     // Send the token back to the parent window using postMessage
-//     res.send(`
-//         <script>
-//             // Post message back to the parent window with the token
-//             window.opener.postMessage({ token: '${publicToken}' }, '*');
-//             window.close(); // Close the current callback window (which is an iframe)
-//         </script>
-//     `);
-// });
-
-
-
 
 router.get('/api/auth/callback', authCallbackMiddleware, (req, res) => {
     const publicToken = req.session.public_token;
@@ -82,26 +56,67 @@ router.get('/api/auth/callback', authCallbackMiddleware, (req, res) => {
 });
 
 
-router.get('/api/auth/token', authRefreshMiddleware, function (req, res) {
-    res.json(req.publicOAuthToken);
+// router.get('/api/auth/token', authRefreshMiddleware, function (req, res) {
+//     res.json(req.publicOAuthToken);
+// });
+
+// ENABLE TOP CODE TO VIEW THE SIDEBAR MAIN.MJS, AUTH/TOKEN, AUTH/PROFILE
+
+router.get('/api/auth/token', async (req, res) => {
+    try {
+        const response = await Axios({
+            method: 'POST',
+            url: 'https://developer.api.autodesk.com/authentication/v2/token',
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded',
+            },
+            data: querystring.stringify({
+                client_id: APS_CLIENT_ID,
+                client_secret: APS_CLIENT_SECRET,
+                grant_type: 'client_credentials',
+                scope: scopes
+            })
+        });
+
+        if (response.status === 200 && response.data.access_token) {
+            res.json({
+                access_token: response.data.access_token,
+                refresh_token: response.data.access_token,
+                expires_in: response.data.expires_in,
+                internal_token: response.data.access_token
+            });
+        } else {
+            console.error('Authentication failed, invalid response:', response.data);
+            res.status(400).json({ error: 'Failed to authenticate: Invalid response from API' });
+        }
+
+    } catch (error) {
+        // Log detailed error for debugging
+        console.error('Error during authentication:', error.response?.data || error.message);
+        res.status(500).json({ error: 'Failed to authenticate', details: error.response?.data || error.message });
+    }
 });
 
 
-// router.get('/api/auth/profile', authRefreshMiddleware, async function (req, res, next) {
+// router.get('/api/auth/profile', async function (req, res, next) {
 //     try {
-//         const profile = await getUserProfile(req.internalOAuthToken.access_token);
-//         res.json({ token:getUserProfile(req.internalOAuthToken.access_token), name: `${profile.name}` });
+//         const authToken = req.headers.authorization?.split(' ')[1]; // Extract token from headers
+//         const profile = await getUserProfile(authToken);
+//         res.json({ name: `${profile.name}` });
 //     } catch (err) {
-//         next(err);
+//         next('ERROR: ' + err);
 //     }
 // });
 
 
+// ENABLE TOP CODE TO VIEW THE SIDEBAR MAIN.MJS, AUTH/TOKEN, AUTH/PROFILE
+
 router.get('/api/auth/profile', async function (req, res, next) {
     try {
         const authToken = req.headers.authorization?.split(' ')[1]; // Extract token from headers
-        const profile = await getUserProfile(authToken);
-        res.json({ name: `${profile.name}` });
+        // const profile = await getUserProfile(authToken);
+        // res.json({ name: `${profile.name}` });
+        res.json({ name: authToken });
     } catch (err) {
         next('ERROR: ' + err);
     }
