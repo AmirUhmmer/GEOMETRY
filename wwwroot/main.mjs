@@ -182,6 +182,7 @@ async function initApp() {
         if (resp.ok) {
             const user = await resp.json();
             login.innerText = `Logout`;
+            login.style.visibility = 'hidden'; //test
             login.onclick = () => {
                 // Logout logic
                 localStorage.removeItem('authToken');
@@ -248,11 +249,13 @@ async function initApp() {
             });
 
         } else {
+            login.style.visibility = 'hidden'; //test
             throw new Error('Failed to authenticate');
         }
 
         console.log(resp);
-        login.style.visibility = 'visible';
+        login.style.visibility = 'hidden'; //test
+        // login.style.visibility = 'visible';
     } catch (err) {
         alert('Could not initialize the application. See console for more details.');
         console.error(err);
