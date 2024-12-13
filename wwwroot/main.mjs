@@ -216,6 +216,27 @@ async function initApp() {
             console.log("Record ID:", recordId);
 
 
+            // Check if the IFRAME can access the parent (Dynamics form)
+            if (window.parent.Xrm) {
+                // Access the formContext (modern API)
+                var formContext = window.parent.Xrm.Page.data.entity;
+
+                // Access the 'Property' field (semy_property)
+                var property = formContext.attributes.getByName("semy_property").getValue();
+                console.log("Property from form: " + property);
+
+                // You can extract other form fields similarly (e.g., Organization Name)
+                var orgName = formContext.attributes.getByName("orgname").getValue();
+                console.log("Organization Name from form: " + orgName);
+
+                // Now you have access to form fields and URL query parameters
+                // You can use both in your logic as needed
+            }
+            else{
+                console.log("CANT ACCESS!");
+            }
+
+
 
             // Initialize the viewer and sidebar
             const viewer = await initViewer(document.getElementById('preview'));
