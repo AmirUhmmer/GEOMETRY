@@ -205,7 +205,21 @@ async function initApp() {
             
             let entityType = params["typename"];  // The entity type name (e.g., iotdatapoint)
             let recordId = params["id"];     // The unique identifier (GUID) of the record
+            let property = params["property"];  // The property value, if it exists
+            let uniqueID = params["uniqueID"];  // The uniqueID, if it exists
 
+            if (uniqueID) {
+                localStorage.setItem('uniqueID', uniqueID);
+                console.log("uniqueID stored in localStorage:", uniqueID);
+            } else {
+                console.log("uniqueID not found in URL");
+            }
+
+            if (property) {
+                property = decodeURIComponent(property); // Decode the URL encoded property value
+                console.log("Decoded Property:", property);  // Logs the decoded property value
+            }
+            
             // Log the full URL to the console
             let fullURL = window.location.href;
             console.log("Full URL:", fullURL); // This will log the full URL, e.g., http://localhost:8080/index.html?etn=iotdatapoint&id=12345678-1234-1234-1234-123456789abc
@@ -216,28 +230,6 @@ async function initApp() {
             console.log("Record ID:", recordId);
 
 
-            // Check if the IFRAME can access the parent (Dynamics form)
-            if (window.parent.Xrm) {
-                // Access the formContext (modern API)
-                var formContext = window.parent.Xrm.Page.data.entity;
-
-                // Access the 'Property' field (semy_property)
-                var property = formContext.attributes.getByName("semy_property").getValue();
-                console.log("Property from form: " + property);
-
-                // You can extract other form fields similarly (e.g., Organization Name)
-                var orgName = formContext.attributes.getByName("orgname").getValue();
-                console.log("Organization Name from form: " + orgName);
-
-                // Now you have access to form fields and URL query parameters
-                // You can use both in your logic as needed
-            }
-            else{
-                console.log("CANT ACCESS!");
-            }
-
-
-
             // Initialize the viewer and sidebar
             const viewer = await initViewer(document.getElementById('preview'));
 
@@ -245,20 +237,45 @@ async function initApp() {
 
 
             // Mapping of recordId to geometry URN values
-            const geometryMap = {
-                //DB8
+            const geometryMapById = {
+                // DB8
                 '2e85182d-a8b7-ef11-b8e8-7c1e5275e0ca': 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnhkWFJlcVYwVDFhem9XdWVFaVNuemc/dmVyc2lvbj0xNg',
+                
+                // HG62
+                '766fb31a-a8b7-ef11-b8e8-7c1e5275e0ca': 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLlV3aG1UYUU1UlEyMS0tbm1DUWQycEE/dmVyc2lvbj04NQ',
+                
+                // SOL10
+                'f8c64108-adb7-ef11-b8e8-7c1e5275e0ca': 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLmdzMFBSQjNlUlVTNkFOTEswOXZEWUE/dmVyc2lvbj0xOQ'
+            };
 
-                //HG62
+            // Mapping of property value to geometry URN values
+            const geometryMapByProperty = {
+                // DB8
+                'Drengsrudbekken 8 AS': 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnhkWFJlcVYwVDFhem9XdWVFaVNuemc/dmVyc2lvbj0xNg',
+
+                // HG62
                 '766fb31a-a8b7-ef11-b8e8-7c1e5275e0ca': 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLlV3aG1UYUU1UlEyMS0tbm1DUWQycEE/dmVyc2lvbj04NQ',
 
-                //SOL10
+                // SOL10
                 'f8c64108-adb7-ef11-b8e8-7c1e5275e0ca': 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLmdzMFBSQjNlUlVTNkFOTEswOXZEWUE/dmVyc2lvbj0xOQ'
-
             };
 
             // Default geometry if no match is found
-            let geometry = geometryMap[recordId] || 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnhkWFJlcVYwVDFhem9XdWVFaVNuemc/dmVyc2lvbj0xNg';
+            const defaultGeometry = 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnhkWFJlcVYwVDFhem9XdWVFaVNuemc/dmVyc2lvbj0xNg';
+
+            // Attempt to find geometry based on recordId
+            let geometry = geometryMapById[recordId];
+
+            // If no match was found for recordId, check for a match by property value
+            if (!geometry && property) {
+                geometry = geometryMapByProperty[property];
+            }
+
+            // If still no match, fall back to the default geometry
+            if (!geometry) {
+                geometry = defaultGeometry;
+            }
+
 
 
             // Initialize the tree and handle model loading
