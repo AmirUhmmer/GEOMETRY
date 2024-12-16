@@ -104,20 +104,51 @@ export function initViewer(container) {
                         // levelsExt.floorSelector.selectFloor(0, true); // Replace 0 with the default floor index if needed
                     });
 
+                    let HardAsset = localStorage.getItem('HardAssetChecker');
 
-                    const overlay = document.getElementById('overlay');
+                    console.log('HardAssetChecker')
 
-                    overlay.style.visibility = 'visible';
+                    if(HardAsset === 'Hard Asset'){
 
+                        let assetValue = localStorage.getItem('ASSET');
 
-                    document.getElementById("search").addEventListener("click", function first() {
+                        console.log('SEARCHED:' + assetValue)
+
+                        // Assuming `viewer.search` and other viewer methods are correctly defined
                         viewer.search(
-                          document.getElementById("filter").value,
-                          function (dbIDs) {
-                            viewer.isolate(dbIDs);
-                            viewer.fitToView(dbIDs);
-                        });
-                    });
+                            assetValue,  // Pass the asset value from localStorage as the search query
+                            function(dbIDs) {
+                                viewer.isolate(dbIDs);  // Isolate the results based on dbIDs
+                                viewer.fitToView(dbIDs);  // Fit the view to the results
+                                viewer.select(dbIDs);  // Highlight
+                            }
+                        );
+                    }
+
+
+
+
+
+
+
+
+
+                    // ENABLE IF WANT TO SEARCH OBJECT IN MODEL
+
+
+                    // const overlay = document.getElementById('overlay');
+
+                    // overlay.style.visibility = 'visible';
+
+
+                    // document.getElementById("search").addEventListener("click", function first() {
+                    //     viewer.search(
+                    //       document.getElementById("filter").value,
+                    //       function (dbIDs) {
+                    //         viewer.isolate(dbIDs);
+                    //         viewer.fitToView(dbIDs);
+                    //     });
+                    // });
                 }
             });
 

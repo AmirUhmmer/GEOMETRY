@@ -274,11 +274,14 @@ async function initApp() {
             // If no match was found for recordId, check for a match by property value
             if (!geometry && property) {
                 geometry = geometryMapByProperty[property];
+                localStorage.setItem('HardAssetChecker', 'Hard Asset');
+                localStorage.setItem('ASSET', uniqueID);
             }
 
             // If still no match, fall back to the default geometry
             if (!geometry) {
                 geometry = defaultGeometry;
+                localStorage.setItem('HardAssetChecker', 'No Hard Asset');
             }
 
 
