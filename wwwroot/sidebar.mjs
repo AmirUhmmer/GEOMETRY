@@ -8,6 +8,7 @@
 //     return resp.json();
 // }
 
+import { fetchAccessToken } from './main.mjs';
 
 async function getJSON(url) {
     const token = localStorage.getItem('authToken');
@@ -28,9 +29,10 @@ async function getJSON(url) {
         }
     });
     if (!resp.ok) {
+        fetchAccessToken();
         alert('Could not load tree data. See console for more details.');
         console.error(await resp.text());
-        return [];
+        // return [];
     }
     return resp.json();
 }

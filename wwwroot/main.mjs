@@ -131,7 +131,7 @@ import { initTree } from './sidebar.mjs';
 const login = document.getElementById('login');
 
 // Function to fetch access token using Client Credentials from your server
-async function fetchAccessToken() {
+export async function fetchAccessToken() {
     try {
         const response = await fetch('/api/auth/token');  // Fetch the token from the server-side endpoint
         if (!response.ok) {
@@ -162,6 +162,11 @@ async function initApp() {
         let refreshToken = localStorage.getItem('refreshToken');
         let expires_at = localStorage.getItem('expires_at');
         let internal_token = localStorage.getItem('internal_token');
+
+        // console.log(authToken);
+        // console.log(refreshToken);
+        // console.log(expires_at);
+        // console.log(internal_token);
 
         // If the token is expired or not present, fetch a new one
         if (!authToken || isTokenExpired()) {
