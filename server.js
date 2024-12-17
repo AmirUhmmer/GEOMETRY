@@ -8,7 +8,7 @@ const path = require('path');
 
 let app = express();
 
-// Example: Setting cookies in your Express app
+// Setting cookies in your Express app
 app.use(session({
     secret: SERVER_SESSION_SECRET,
     resave: false,
