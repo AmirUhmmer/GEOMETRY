@@ -263,7 +263,7 @@ async function initApp() {
             // Mapping of property value to geometry URN values
             const geometryMapByProperty = {
                 // DB8
-                'Drengsrudbekken 8 AS': 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnhkWFJlcVYwVDFhem9XdWVFaVNuemc/dmVyc2lvbj0xNg',
+                'Drengsrudbekken 8 AS': 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLmN1eTlfS1FpU3lhZHFVdTJhSV9Cc2c/dmVyc2lvbj0xMg',
 
                 // HG62
                 'Helgesensgate 62': 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLlV3aG1UYUU1UlEyMS0tbm1DUWQycEE/dmVyc2lvbj04NQ',
