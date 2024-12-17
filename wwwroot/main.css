@@ -30,11 +30,14 @@ body, html {
     left: 0;
     top: 3em;
     bottom: 0;
+    visibility: hidden;
+    /* comment visibility for sidebar */
     overflow-y: scroll;
 }
 
 #preview {
-    width: 75%;
+    width: 100%; 
+    /* 75% if enable sidebar */
     right: 0;
     top: 3em;
     bottom: 0;

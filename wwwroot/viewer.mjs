@@ -42,40 +42,96 @@ export function initViewer(container) {
             viewer.start();
             viewer.setTheme('dark-theme');
 
-            // Add click event listener to show the dbid of the selected object
-            viewer.addEventListener(Autodesk.Viewing.SELECTION_CHANGED_EVENT, function (event) {
+
+
+            const canvas = viewer.impl.canvas;
+
+            // canvas.addEventListener('dblclick', function (event) {
+            //     event.preventDefault(); // Prevents default zoom on double-click
+
+            //     const selectedItems = viewer.getSelection();
+            //     if (selectedItems.length > 0) {
+            //         const dbid = selectedItems[0];
+            //         console.log(dbid);
+            //         let globalid = localStorage.getItem('uniqueID');
+            //         var hardassetURL = "https://org47a0b99a.crm4.dynamics.com/main.aspx?appid=b86bd27b-2e83-ec11-8d21-000d3a64cba3&pagetype=entityrecord&etn=msdyn_customerasset&id=" + globalid;
+            //         console.log(hardassetURL);
+
+            //         // Open the URL in a new tab
+            //         window.open(hardassetURL, '_blank');
+            //     }
+            // });
+
+
+            canvas.addEventListener('dblclick', function (event) {
+                event.preventDefault(); // Prevents default zoom on double-click
+            
                 const selectedItems = viewer.getSelection();
                 if (selectedItems.length > 0) {
                     const dbid = selectedItems[0];
-                    console.log(dbid);
-
-                    const dbIdArray = event.dbIdArray; // Get the selected object IDs
-
-                    const dbId = dbIdArray[0]; // Assume the first selected object
-
-                    const instanceTree = viewer.model.getInstanceTree();
-
-                    instanceTree.enumNodeFragments(dbId, (fragId) => {
-                        const fragList = viewer.model.getFragmentList();
-                        const matrix = new THREE.Matrix4();
-                        fragList.getWorldMatrix(fragId, matrix);
-
-                        const position = new THREE.Vector3();
-                        position.setFromMatrixPosition(matrix);
-
-                        console.log(`World Coordinates: x=${position.x}, y=${position.y}, z=${position.z}`);
+                    console.log("Selected DBID:", dbid);
+            
+                    // Retrieve properties using the DBID
+                    viewer.getProperties(dbid, function(props) {
+                        // Find the GlobalID property
+                        let globalID = null;
+                        props.properties.forEach(function(prop) {
+                            if (prop.displayName === "Asset ID") {
+                                globalID = prop.displayValue;
+                            }
+                        });
+            
+                        if (globalID) {
+                            // Construct the URL using the GlobalID retrieved from the properties
+                            var newUrl = "https://org47a0b99a.crm4.dynamics.com/main.aspx?appid=b86bd27b-2e83-ec11-8d21-000d3a64cba3&pagetype=entityrecord&etn=msdyn_customerasset&id=" + globalID;
+                            console.log("New URL:", newUrl);
+            
+                            // Open the URL in a new tab
+                            window.open(newUrl, '_blank');
+                        } else {
+                            console.log("GlobalID not found.");
+                        }
                     });
-                    // // Get the screen coordinates from the mouse click
-                    // const screenPoint = new THREE.Vector2(event.canvasX, event.canvasY);
-                        
-                    // // Convert screen coordinates to world coordinates
-                    // const worldPoint = viewer.clientToWorld(screenPoint);
-
-                    // console.log('World Coordinates:', worldPoint);
-
-
                 }
-            });  
+            });
+            
+
+
+
+            // // Add click event listener to show the dbid of the selected object
+            // viewer.addEventListener(Autodesk.Viewing.SELECTION_CHANGED_EVENT, function (event) {
+            //     const selectedItems = viewer.getSelection();
+            //     if (selectedItems.length > 0) {
+            //         const dbid = selectedItems[0];
+            //         console.log(dbid);
+
+            //         const dbIdArray = event.dbIdArray; // Get the selected object IDs
+
+            //         const dbId = dbIdArray[0]; // Assume the first selected object
+
+            //         const instanceTree = viewer.model.getInstanceTree();
+
+            //         instanceTree.enumNodeFragments(dbId, (fragId) => {
+            //             const fragList = viewer.model.getFragmentList();
+            //             const matrix = new THREE.Matrix4();
+            //             fragList.getWorldMatrix(fragId, matrix);
+
+            //             const position = new THREE.Vector3();
+            //             position.setFromMatrixPosition(matrix);
+
+            //             console.log(`World Coordinates: x=${position.x}, y=${position.y}, z=${position.z}`);
+            //         });
+            //         // // Get the screen coordinates from the mouse click
+            //         // const screenPoint = new THREE.Vector2(event.canvasX, event.canvasY);
+                        
+            //         // // Convert screen coordinates to world coordinates
+            //         // const worldPoint = viewer.clientToWorld(screenPoint);
+
+            //         // console.log('World Coordinates:', worldPoint);
+
+
+            //     }
+            // });  
 
 
 
