@@ -236,19 +236,17 @@ export function loadModel(viewer, urn) {
         console.error(message);
     }
 
-    // const sampleURN = 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnhkWFJlcVYwVDFhem9XdWVFaVNuemc/dmVyc2lvbj0xNg';
-
-    // Autodesk.Viewing.Document.load('urn:' + sampleURN, onDocumentLoadSuccess, onDocumentLoadFailure);
-
-    // urn:adsk.wipemea:dm.lineage:xdXReqV0T1azoWueEiSnzg
-
     console.log(urn);
     Autodesk.Viewing.Document.load('urn:' + urn, onDocumentLoadSuccess, onDocumentLoadFailure);
 }
 
 
-
-
+// {3D - dsa3J29U}
+// dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLmN1eTlfS1FpU3lhZHFVdTJhSV9Cc2c/dmVyc2lvbj0xMg
+// SMY-DB8-xxx-SIT-R24
+// dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnNSZk9sS1BJVE1HM3pTZ0JvZUYzV3c/dmVyc2lvbj00
+// SMY-DB8-xxx-SIT-R24
+// dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnhkWFJlcVYwVDFhem9XdWVFaVNuemc/dmVyc2lvbj0xNg
 
 
 

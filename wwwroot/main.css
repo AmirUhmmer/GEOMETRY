@@ -2,7 +2,7 @@ body, html {
     margin: 0;
     padding: 0;
     height: 100vh;
-    font-family: ArtifaktElement;
+    font-family: Polyphonic SemiBold;
 }
 
 #header, #sidebar, #preview {
@@ -56,6 +56,7 @@ body, html {
 #header .title {
     height: auto;
     margin-right: auto;
+    padding-left: 5%;
 }
 
 #tree {
