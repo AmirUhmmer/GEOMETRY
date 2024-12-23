@@ -250,22 +250,36 @@ async function initApp() {
                 // dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLmN1eTlfS1FpU3lhZHFVdTJhSV9Cc2c/dmVyc2lvbj0xMg
 
 
-                '2e85182d-a8b7-ef11-b8e8-7c1e5275e0ca': 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLmN1eTlfS1FpU3lhZHFVdTJhSV9Cc2c/dmVyc2lvbj0xMg',
+                '2e85182d-a8b7-ef11-b8e8-7c1e5275e0ca': ['dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLmN1eTlfS1FpU3lhZHFVdTJhSV9Cc2c/dmVyc2lvbj0xMw',
+                                                        'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnNSZk9sS1BJVE1HM3pTZ0JvZUYzV3c/dmVyc2lvbj00',
+                                                        'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnhkWFJlcVYwVDFhem9XdWVFaVNuemc/dmVyc2lvbj0xNg'
+                                                        ],
 
                 // DB8 for Production
-                '06eddd02-c366-ef11-bfe2-000d3ab1d1c2': 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLmN1eTlfS1FpU3lhZHFVdTJhSV9Cc2c/dmVyc2lvbj0xMg',
+                '06eddd02-c366-ef11-bfe2-000d3ab1d1c2': ['dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLmN1eTlfS1FpU3lhZHFVdTJhSV9Cc2c/dmVyc2lvbj0xMw',
+                                                        'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnNSZk9sS1BJVE1HM3pTZ0JvZUYzV3c/dmVyc2lvbj00',
+                                                        'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnhkWFJlcVYwVDFhem9XdWVFaVNuemc/dmVyc2lvbj0xNg'
+                                                        ],
                 
                 // HG62
-                '766fb31a-a8b7-ef11-b8e8-7c1e5275e0ca': 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLlV3aG1UYUU1UlEyMS0tbm1DUWQycEE/dmVyc2lvbj04NQ',
+                '766fb31a-a8b7-ef11-b8e8-7c1e5275e0ca': ['dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLlV3aG1UYUU1UlEyMS0tbm1DUWQycEE/dmVyc2lvbj05OQ',
+                                                         'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnZGZ01YNjRUVDBDcWU4THhZa2RvVUE/dmVyc2lvbj0xNw'
+                                                        ],
 
                 // HG62 for Production
-                '422be7c5-ef69-ef11-bfe2-000d3a6735d4': 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLlV3aG1UYUU1UlEyMS0tbm1DUWQycEE/dmVyc2lvbj04NQ',
+                '422be7c5-ef69-ef11-bfe2-000d3a6735d4': ['dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLlV3aG1UYUU1UlEyMS0tbm1DUWQycEE/dmVyc2lvbj05OQ',
+                                                         'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnZGZ01YNjRUVDBDcWU4THhZa2RvVUE/dmVyc2lvbj0xNw'
+                                                        ],
                 
                 // SOL10
-                'f8c64108-adb7-ef11-b8e8-7c1e5275e0ca': 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLmdzMFBSQjNlUlVTNkFOTEswOXZEWUE/dmVyc2lvbj0xOQ',
+                'f8c64108-adb7-ef11-b8e8-7c1e5275e0ca': ['dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnE4ZzFMRTB2UTJXTzVBSEo5S2Q1NUE/dmVyc2lvbj04',
+                                                         'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLmdzMFBSQjNlUlVTNkFOTEswOXZEWUE/dmVyc2lvbj0xOQ'
+                                                        ],
 
                 // SOL10 for Production
-                '10ff2730-d365-ef11-bfe3-6045bddd062a': 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLmdzMFBSQjNlUlVTNkFOTEswOXZEWUE/dmVyc2lvbj0xOQ'
+                '10ff2730-d365-ef11-bfe3-6045bddd062a': ['dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnE4ZzFMRTB2UTJXTzVBSEo5S2Q1NUE/dmVyc2lvbj04',
+                                                         'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLmdzMFBSQjNlUlVTNkFOTEswOXZEWUE/dmVyc2lvbj0xOQ'
+                                                        ]
 
             };
 
@@ -273,32 +287,64 @@ async function initApp() {
             // Mapping of property value to geometry URN values
             const geometryMapByProperty = {
                 // DB8
-                'Drengsrudbekken 8 AS': 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLmN1eTlfS1FpU3lhZHFVdTJhSV9Cc2c/dmVyc2lvbj0xMg',
+                'Drengsrudbekken 8 AS': ['dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLmN1eTlfS1FpU3lhZHFVdTJhSV9Cc2c/dmVyc2lvbj0xMw',
+                                          'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnNSZk9sS1BJVE1HM3pTZ0JvZUYzV3c/dmVyc2lvbj00',
+                                          'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnhkWFJlcVYwVDFhem9XdWVFaVNuemc/dmVyc2lvbj0xNg'
+                                        ],
 
                 // HG62
-                'Helgesensgate 62': 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLlV3aG1UYUU1UlEyMS0tbm1DUWQycEE/dmVyc2lvbj04NQ',
+                'Helgesensgate 62': ['dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLlV3aG1UYUU1UlEyMS0tbm1DUWQycEE/dmVyc2lvbj05OQ',
+                                     'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnZGZ01YNjRUVDBDcWU4THhZa2RvVUE/dmVyc2lvbj0xNw'
+                                    ],
 
                 // SOL10
-                'Solbråveien 10 AS': 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLmdzMFBSQjNlUlVTNkFOTEswOXZEWUE/dmVyc2lvbj0xOQ'
+                'Solbråveien 10 AS': ['dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnE4ZzFMRTB2UTJXTzVBSEo5S2Q1NUE/dmVyc2lvbj04',
+                                      'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLmdzMFBSQjNlUlVTNkFOTEswOXZEWUE/dmVyc2lvbj0xOQ'
+                                     ]
             };
 
             // Default geometry if no match is found
-            const defaultGeometry = 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLmN1eTlfS1FpU3lhZHFVdTJhSV9Cc2c/dmVyc2lvbj0xMg';
+            const defaultGeometry = [
+                //  DB8
+                'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLmN1eTlfS1FpU3lhZHFVdTJhSV9Cc2c/dmVyc2lvbj0xMw',
+                'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnNSZk9sS1BJVE1HM3pTZ0JvZUYzV3c/dmVyc2lvbj00',
+                'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnhkWFJlcVYwVDFhem9XdWVFaVNuemc/dmVyc2lvbj0xNg'
+
+                // HG62
+                // 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnZGZ01YNjRUVDBDcWU4THhZa2RvVUE/dmVyc2lvbj0xNw',
+                // 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLlV3aG1UYUU1UlEyMS0tbm1DUWQycEE/dmVyc2lvbj05OQ'
+
+                //SOL10
+                // 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnE4ZzFMRTB2UTJXTzVBSEo5S2Q1NUE/dmVyc2lvbj04',
+                // 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLmdzMFBSQjNlUlVTNkFOTEswOXZEWUE/dmVyc2lvbj0xOQ'
+            ];
 
             // Attempt to find geometry based on recordId
             let geometry = geometryMapById[recordId];
 
+            //check if DB8 is viewed in GEOMETRY OVERVIEW
+            // if(recordId === '06eddd02-c366-ef11-bfe2-000d3ab1d1c2' || recordId === '2e85182d-a8b7-ef11-b8e8-7c1e5275e0ca'){
+            //     localStorage.setItem('LiveData', 'DB8');
+            // }
+
             // If no match was found for recordId, check for a match by property value
             if (!geometry && property) {
                 geometry = geometryMapByProperty[property];
+                console.log(geometry + 'TEST');
                 localStorage.setItem('HardAssetChecker', 'Hard Asset');
                 localStorage.setItem('ASSET', uniqueID);
+                localStorage.setItem('LiveData', '');
+                localStorage.removeItem('LiveData');
             }
 
             // If still no match, fall back to the default geometry
             if (!geometry) {
                 geometry = defaultGeometry;
                 localStorage.setItem('HardAssetChecker', 'No Hard Asset');
+                localStorage.setItem('ASSET', '');
+                localStorage.removeItem('ASSET');
+                localStorage.setItem('LiveData', '');
+                localStorage.removeItem('LiveData');
             }
 
 
