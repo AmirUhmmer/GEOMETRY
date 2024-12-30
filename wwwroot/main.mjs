@@ -262,13 +262,13 @@ async function initApp() {
                                                         ],
                 
                 // HG62
-                '766fb31a-a8b7-ef11-b8e8-7c1e5275e0ca': ['dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLlV3aG1UYUU1UlEyMS0tbm1DUWQycEE/dmVyc2lvbj05OQ',
-                                                         'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnZGZ01YNjRUVDBDcWU4THhZa2RvVUE/dmVyc2lvbj0xNw'
+                '766fb31a-a8b7-ef11-b8e8-7c1e5275e0ca': ['dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLlV3aG1UYUU1UlEyMS0tbm1DUWQycEE/dmVyc2lvbj0xMDc',
+                                                         'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnZGZ01YNjRUVDBDcWU4THhZa2RvVUE/dmVyc2lvbj0yMA'
                                                         ],
 
                 // HG62 for Production
-                '422be7c5-ef69-ef11-bfe2-000d3a6735d4': ['dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLlV3aG1UYUU1UlEyMS0tbm1DUWQycEE/dmVyc2lvbj05OQ',
-                                                         'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnZGZ01YNjRUVDBDcWU4THhZa2RvVUE/dmVyc2lvbj0xNw'
+                '422be7c5-ef69-ef11-bfe2-000d3a6735d4': ['dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLlV3aG1UYUU1UlEyMS0tbm1DUWQycEE/dmVyc2lvbj0xMDc',
+                                                        'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnZGZ01YNjRUVDBDcWU4THhZa2RvVUE/dmVyc2lvbj0yMA'
                                                         ],
                 
                 // SOL10
@@ -293,8 +293,8 @@ async function initApp() {
                                         ],
 
                 // HG62
-                'Helgesensgate 62': ['dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLlV3aG1UYUU1UlEyMS0tbm1DUWQycEE/dmVyc2lvbj05OQ',
-                                     'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnZGZ01YNjRUVDBDcWU4THhZa2RvVUE/dmVyc2lvbj0xNw'
+                'Helgesensgate 62': ['dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLlV3aG1UYUU1UlEyMS0tbm1DUWQycEE/dmVyc2lvbj0xMDc',
+                                    'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnZGZ01YNjRUVDBDcWU4THhZa2RvVUE/dmVyc2lvbj0yMA'
                                     ],
 
                 // SOL10
@@ -306,9 +306,10 @@ async function initApp() {
             // Default geometry if no match is found
             const defaultGeometry = [
                 //  DB8
+                'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnhkWFJlcVYwVDFhem9XdWVFaVNuemc/dmVyc2lvbj0xNg',
                 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLmN1eTlfS1FpU3lhZHFVdTJhSV9Cc2c/dmVyc2lvbj0xMw',
-                'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnNSZk9sS1BJVE1HM3pTZ0JvZUYzV3c/dmVyc2lvbj00',
-                'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnhkWFJlcVYwVDFhem9XdWVFaVNuemc/dmVyc2lvbj0xNg'
+                'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnNSZk9sS1BJVE1HM3pTZ0JvZUYzV3c/dmVyc2lvbj00'
+                // 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnhkWFJlcVYwVDFhem9XdWVFaVNuemc/dmVyc2lvbj0xNg'
 
                 // HG62
                 // 'dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnZGZ01YNjRUVDBDcWU4THhZa2RvVUE/dmVyc2lvbj0xNw',
@@ -322,10 +323,13 @@ async function initApp() {
             // Attempt to find geometry based on recordId
             let geometry = geometryMapById[recordId];
 
-            //check if DB8 is viewed in GEOMETRY OVERVIEW
-            // if(recordId === '06eddd02-c366-ef11-bfe2-000d3ab1d1c2' || recordId === '2e85182d-a8b7-ef11-b8e8-7c1e5275e0ca'){
-            //     localStorage.setItem('LiveData', 'DB8');
-            // }
+            // check if DB8 is viewed in GEOMETRY OVERVIEW
+            if(recordId === '06eddd02-c366-ef11-bfe2-000d3ab1d1c2' || recordId === '2e85182d-a8b7-ef11-b8e8-7c1e5275e0ca'){
+                localStorage.setItem('LiveData', 'DB8');
+            }
+            else{
+                localStorage.setItem('LiveData', '');
+            }
 
             // If no match was found for recordId, check for a match by property value
             if (!geometry && property) {
@@ -343,8 +347,9 @@ async function initApp() {
                 localStorage.setItem('HardAssetChecker', 'No Hard Asset');
                 localStorage.setItem('ASSET', '');
                 localStorage.removeItem('ASSET');
-                localStorage.setItem('LiveData', '');
-                localStorage.removeItem('LiveData');
+                localStorage.setItem('LiveData', 'DB8');
+                // localStorage.setItem('LiveData', '');
+                // localStorage.removeItem('LiveData');
             }
 
 

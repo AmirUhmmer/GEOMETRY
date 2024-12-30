@@ -43,8 +43,90 @@ export function initViewer(container) {
             viewer.setTheme('dark-theme');
 
 
-
             const canvas = viewer.impl.canvas;
+
+            canvas.addEventListener('click', function (event) {
+                console.log("Canvas clicked:", event); // Log the event to ensure the click is firing
+            
+                const aggregateSelection = viewer.getAggregateSelection(); // Get selections from all loaded models
+                console.log("Aggregate selection:", aggregateSelection); // Log the aggregate selection
+            
+                if (aggregateSelection && aggregateSelection.length > 0) { // Check if aggregateSelection is defined and has items
+                    aggregateSelection.forEach(selection => {
+                        // console.log("Processing selection:", selection); // Log the selection details
+            
+                        const model = selection.model;           // Get the selected model
+                        // console.log("Model:", model);            // Log the model
+            
+                        const dbIdArray = selection.selection;   // Get the selected object IDs from the selection array
+                        // console.log("dbIdArray:", dbIdArray);    // Log the dbIdArray
+            
+                        if (dbIdArray && dbIdArray.length > 0) { // Ensure dbIdArray is defined and has objects
+                            const dbId = dbIdArray[0];           // Assume the first selected object for demonstration
+                            console.log("Selected dbId:", dbId); // Log the selected dbId
+            
+                            const instanceTree = model.getInstanceTree();
+                            // console.log("InstanceTree:", instanceTree); // Log the instance tree to ensure it's available
+            
+                            if (instanceTree) {
+                                instanceTree.enumNodeFragments(dbId, (fragId) => {
+                                    const fragList = model.getFragmentList();    // Use the correct model's fragment list
+                                    const matrix = new THREE.Matrix4();
+                                    fragList.getWorldMatrix(fragId, matrix);
+            
+                                    const position = new THREE.Vector3();
+                                    position.setFromMatrixPosition(matrix);
+            
+                                    console.log(`World Coordinates (Model ${model.id}): x=${position.x}, y=${position.y}, z=${position.z}`);
+                                });
+                            } else {
+                                console.log("InstanceTree not available for model:", model);
+                            }
+                        } else {
+                            console.log("No objects selected in dbIdArray.");
+                        }
+                    });
+                } else {
+                    console.log('No objects selected or aggregate selection is undefined.');
+                }
+            });
+            
+            
+            
+            // viewer.addEventListener(Autodesk.Viewing.SELECTION_CHANGED_EVENT, function (event) {
+            //     const selectedItems = viewer.getSelection();
+            //     if (selectedItems.length > 0) {
+            //         const dbid = selectedItems[0];
+            //         console.log(dbid);
+
+            //         const dbIdArray = event.dbIdArray; // Get the selected object IDs
+
+            //         const dbId = dbIdArray[0]; // Assume the first selected object
+
+            //         const instanceTree = viewer.model.getInstanceTree();
+
+            //         instanceTree.enumNodeFragments(dbId, (fragId) => {
+            //             const fragList = viewer.model.getFragmentList();
+            //             const matrix = new THREE.Matrix4();
+            //             fragList.getWorldMatrix(fragId, matrix);
+
+            //             const position = new THREE.Vector3();
+            //             position.setFromMatrixPosition(matrix);
+
+            //             console.log(`World Coordinates: x=${position.x}, y=${position.y}, z=${position.z}`);
+            //         });
+            //         // // Get the screen coordinates from the mouse click
+            //         // const screenPoint = new THREE.Vector2(event.canvasX, event.canvasY);
+                        
+            //         // // Convert screen coordinates to world coordinates
+            //         // const worldPoint = viewer.clientToWorld(screenPoint);
+
+            //         // console.log('World Coordinates:', worldPoint);
+
+
+            //     }
+            // }); 
+            
 
             canvas.addEventListener('dblclick', function (event) {
                 event.preventDefault(); // Prevents default zoom on double-click
@@ -120,18 +202,20 @@ export function initViewer(container) {
 
 // {3D - dsa3J29U}
 // dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLmN1eTlfS1FpU3lhZHFVdTJhSV9Cc2c/dmVyc2lvbj0xMw
-// dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLmN1eTlfS1FpU3lhZHFVdTJhSV9Cc2c/dmVyc2lvbj0xMg
-// SMY-DB8-xxx-SIT-R24
-// dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnNSZk9sS1BJVE1HM3pTZ0JvZUYzV3c/dmVyc2lvbj00
-// SMY-DB8-xxx-SIT-R24
+// dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLmN1eTlfS1FpU3lhZHFVdTJhSV9Cc2c/dmVyc2lvbj0xMg     --Without archi
+// SMY-DB8-SITE
+// dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnNSZk9sS1BJVE1HM3pTZ0JvZUYzV3c/dmVyc2lvbj00   -- Site
+// SMY-DB8-ARCHI
 // dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnhkWFJlcVYwVDFhem9XdWVFaVNuemc/dmVyc2lvbj0xNg
 
 
 // HG62
 // MEP
-// dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnZGZ01YNjRUVDBDcWU4THhZa2RvVUE/dmVyc2lvbj0xNw
+// dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnZGZ01YNjRUVDBDcWU4THhZa2RvVUE/dmVyc2lvbj0xNw --old
+// dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLnZGZ01YNjRUVDBDcWU4THhZa2RvVUE/dmVyc2lvbj0yMA --new
 // ARCHI
-// dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLlV3aG1UYUU1UlEyMS0tbm1DUWQycEE/dmVyc2lvbj05OQ
+// dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLlV3aG1UYUU1UlEyMS0tbm1DUWQycEE/dmVyc2lvbj05OQ --old
+// dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLlV3aG1UYUU1UlEyMS0tbm1DUWQycEE/dmVyc2lvbj0xMDc --new
 
 
 // SOL10
@@ -140,6 +224,9 @@ export function initViewer(container) {
 // ARCHI
 // dXJuOmFkc2sud2lwZW1lYTpmcy5maWxlOnZmLmdzMFBSQjNlUlVTNkFOTEswOXZEWUE/dmVyc2lvbj0xOQ
 
+
+
+// ******************************* WORKING ************************
 
 
 export function loadModel(viewer, urns) {
@@ -199,51 +286,82 @@ export function loadModel(viewer, urns) {
 
 
                         // Check if the loaded model is named "DB8"
-                        // let LiveData = localStorage.getItem('LiveData');
-                        // console.log(LiveData);
-                        // if (LiveData === 'DB8' && selectedLevelIndex !== undefined) {
-                        //     HEATMAP(viewer, selectedLevelIndex); // Call HEATMAP only if the model name is DB8
-                        //     SPRITES(viewer, selectedLevelIndex); // SPRITES will be called
-                        // }
+                        let LiveData = localStorage.getItem('LiveData');
+                        console.log(LiveData);
+                        if (LiveData === 'NOT YET LIVE' && selectedLevelIndex !== undefined) {
+                            HEATMAP(viewer, selectedLevelIndex); // Call HEATMAP only if the model name is DB8
+                            SPRITES(viewer, selectedLevelIndex); // SPRITES will be called
+                        }
                     });
     
                     // Optionally, you can set a default floor after loading the extension
                     // levelsExt.floorSelector.selectFloor(0, true); // Replace 0 with the default floor index if needed
                 });
 
+
+                // Add click event listener to show the dbid of the selected object
+                // viewer.addEventListener(Autodesk.Viewing.SELECTION_CHANGED_EVENT, function (event) {
+                //     const selectedItems = viewer.getSelection();
+                //     if (selectedItems.length > 0) {
+                //         const dbid = selectedItems[0];
+                //         console.log("Selected object dbid: " + dbid);
+
+                //         // Get the screen coordinates from the mouse click
+                //             const screenPoint = new THREE.Vector2(event.canvasX, event.canvasY);
+                            
+                //             // Convert screen coordinates to world coordinates
+                //             const worldPoint = viewer.clientToWorld(screenPoint);
+
+                //             console.log('World Coordinates:', worldPoint);
+                //     }
+                // }); 
+
                 let HardAsset = localStorage.getItem('HardAssetChecker');
 
                 console.log(HardAsset);
 
                 // Assuming this is part of your search function when Hard Asset is selected
-                if(HardAsset === 'Hard Asset'){
+                if (HardAsset === 'Hard Asset') {
 
                     let assetValue = localStorage.getItem('ASSET');
-                    console.log('SEARCHED:' + assetValue)
+                    console.log('SEARCHED:' + assetValue);
 
                     // First, get the models from the viewer
                     const models = viewer.impl.modelQueue().getModels();
 
-                    // Assuming `viewer.search` searches within the loaded models
-                    viewer.search(
-                        assetValue,  // Pass the asset value from localStorage as the search query
-                        function(dbIDs) {
-                            // First, hide all objects in all loaded models
+                    // Ensure models are loaded before proceeding
+                    if (models && models.length > 0 && assetValue) {
+
+                        // Perform the search within the loaded models
+                        viewer.search(assetValue, function(dbIDs) {
+
+                            // If no objects are found, handle it gracefully
+                            if (!dbIDs || dbIDs.length === 0) {
+                                console.log('No matching objects found for: ' + assetValue);
+                                return;
+                            }
+
+                            // Loop through the models only once
                             models.forEach(model => {
-                                viewer.isolate([], model);  // Isolate with an empty array hides all objects in each model
+                                // Hide all objects first
+                                viewer.isolate([], model);
+
+                                // Isolate the found objects
+                                viewer.isolate(dbIDs, model);
                             });
 
-                            // Now, isolate and fit only the found objects from the search across all models
-                            models.forEach(model => {
-                                viewer.isolate(dbIDs, model);  // Isolate the found objects in each model
-                            });
-
-                            // Fit to view and highlight the found object
+                            // Fit to view and highlight the found objects
                             viewer.fitToView(dbIDs);
-                            viewer.select(dbIDs);  // Highlight the objects
-                        }
-                    );
+                            viewer.select(dbIDs);  // Optionally highlight the objects
+
+                        }, function(error) {
+                            console.error('Search error:', error);  // Handle any potential search errors
+                        });
+                    } else {
+                        console.warn('No models loaded or invalid asset value.');
+                    }
                 }
+
 
 
 
@@ -295,7 +413,7 @@ export function loadModel(viewer, urns) {
 }
 
 
-
+// ******************************* WORKING ************************
 
 
 // export function loadModel(viewer, urns) {

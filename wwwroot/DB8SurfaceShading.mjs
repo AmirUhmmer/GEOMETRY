@@ -73,29 +73,54 @@ export async function HEATMAP(viewer, selectedFloor) {
 
     // { name: "Office (DB8.-.2.010)", dbId: 26161, guid: "" },
 
+    // const extension0 = await viewer.loadExtension('Autodesk.DataVisualization');
+
+    // // Creating shading points for all nodes
+    // const shadingPoint = new SurfaceShadingPoint("Location", undefined, ["TEMP"]);
+    // await shadingPoint.positionFromDBId(viewer.model); // Get position from DBId once
+
+    // // Create shading nodes and add points
+    // const nodes = nodesData.map(data => {
+    //     const node = new SurfaceShadingNode(data.name, data.dbId);
+    //     node.hemyguid = data.guid;
+    //     node.addPoint(shadingPoint); // Attach point to node
+    //     return node;
+    // });
+
+    // const heatmapData = new SurfaceShadingData();
+    // nodes.forEach(node => heatmapData.addChild(node)); // Add all nodes to heatmapData
+    // heatmapData.initialize(viewer.model);
+
+    // // Load extension only once
+    // const extension = await viewer.loadExtension('Autodesk.DataVisualization');
+    // console.log('SurfaceShadingExtension loaded successfully!');
+
+
+    // Load the extension once
     const extension0 = await viewer.loadExtension('Autodesk.DataVisualization');
+    console.log('SurfaceShadingExtension loaded successfully!');
 
     // Creating shading points for all nodes
     const shadingPoint = new SurfaceShadingPoint("Location", undefined, ["TEMP"]);
-    await shadingPoint.positionFromDBId(viewer.model); // Get position from DBId once
+    await shadingPoint.positionFromDBId(viewer.model); // Fetch position once
 
-    // Create shading nodes and add points
+    // Convert dbId to number and map nodes
     const nodes = nodesData.map(data => {
-        const node = new SurfaceShadingNode(data.name, data.dbId);
+        const node = new SurfaceShadingNode(data.name, parseInt(data.dbId, 10)); // Ensure dbId is numeric
         node.hemyguid = data.guid;
         node.addPoint(shadingPoint); // Attach point to node
         return node;
     });
 
     const heatmapData = new SurfaceShadingData();
-    nodes.forEach(node => heatmapData.addChild(node)); // Add all nodes to heatmapData
-    heatmapData.initialize(viewer.model);
+    nodes.forEach(node => heatmapData.addChild(node)); // Add nodes to heatmap data
+    await heatmapData.initialize(viewer.model); // Initialize heatmap with model
+
+    console.log('Heatmap Data initialized.');
 
     // Load extension only once
     const extension = await viewer.loadExtension('Autodesk.DataVisualization');
     console.log('SurfaceShadingExtension loaded successfully!');
-
-
 
     try {
         // Setup surface shading with heatmap data
